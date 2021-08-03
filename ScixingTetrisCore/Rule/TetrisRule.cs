@@ -5,14 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ScixingTetrisCore.Interface;
+using ScixingTetrisCore.Rule;
 namespace ScixingTetrisCore.Rule
 {
     public abstract class TetrisRule : ITetrisRule
     {
         //public static readonly TetrisRule GuildLine = new()
         //{
-        //    RotationSystem = RotationSystem.SRS,
+        //    RotationSystem = Rule.RotationSystem.SRS,
         //    AttackTable = AttackTable.Guideline,
+        //    FieldCheck = Rule.FieldCheck.GuildLine,
+        //    CheckMinoOk = (tetrisBoard, tetrisMinoStatus) => FieldCheck.IsMinoOk(tetrisBoard, tetrisMinoStatus),
         //};
         /// <summary>
         /// Puyo Puyo Tetris
@@ -38,23 +41,58 @@ namespace ScixingTetrisCore.Rule
         /// Jstris
         /// </summary>
         public static readonly TetrisRule Jstris;
+
+        //public Func<ITetrisBoard, ITetrisMinoStatus, bool> CheckMinoOk { get; private set; }
+
+        //public Func<AttackMessage, List<int>> GetAttack { get; private set; }
+
         /// <summary>
-        /// 旋转系统
+        /// 旋转系统 暂时先公开吧 后续再撕烤一下
         /// </summary>
-        public IRotationSystem RotationSystem { get; private set; }
-        public AttackTable AttackTable { get; private set; }
-        public IFieldCheck FieldCheck;
+        public IRotationSystem RotationSystem { get; set; }
+        /// <summary>
+        /// 攻击表
+        /// </summary>
+        protected AttackRule _attackRule { get; set; }
+
+        protected IFieldCheck _fieldCheck;
         public abstract bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
 
         public abstract List<int> GetAttack(AttackMessage attackMessage);
     }
 
-    public sealed class GuildLineRule : TetrisRule
+    public class GuildLineRule : TetrisRule
     {
-        public static GuildLineRule GuildLine;
+        public static GuildLineRule Rule = new()
+        {
+            RotationSystem = ScixingTetrisCore.Rule.RotationSystem.SRS,
+            //RotationSystem = ScixingTetrisCore.Rule.RotationSystem.Geek,
+            _fieldCheck = FCGuildLine.FieldCheck,
+            _attackRule = ARGuildLine.Guideline,
+        };
         public override bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
-            return FieldCheck.IsMinoOk(tetrisBoard, tetrisMinoStatus);
+            return _fieldCheck.IsMinoOk(tetrisBoard, tetrisMinoStatus);
+        }
+
+        public override List<int> GetAttack(AttackMessage attackMessage)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class GeekTetrisRule : TetrisRule
+    {
+        public static GeekTetrisRule Rule = new()
+        {
+            //RotationSystem = ScixingTetrisCore.Rule.RotationSystem.SRS,
+            RotationSystem = ScixingTetrisCore.Rule.RotationSystem.Geek,
+            _fieldCheck = FCGuildLine.FieldCheck,
+            _attackRule = ARGuildLine.Guideline,
+        };
+        public override bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus)
+        {
+            return _fieldCheck.IsMinoOk(tetrisBoard, tetrisMinoStatus);
         }
 
         public override List<int> GetAttack(AttackMessage attackMessage)

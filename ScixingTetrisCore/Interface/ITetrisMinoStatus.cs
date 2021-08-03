@@ -11,7 +11,7 @@ namespace ScixingTetrisCore.Interface
         /// <summary>
         /// 方块位置
         /// </summary>
-        (int X, int Y) Position { get; }
+        (int X, int Y) Position { get; set; }
         int Stage { get; set; }
         ITetrisMino TetrisMino { get; set; }
 
@@ -24,5 +24,9 @@ namespace ScixingTetrisCore.Interface
         void MoveTop();
 
         (int X, int Y)[] GetMinoFieldListInBoard();
+
+        public ITetrisMinoStatus Clone();
+
+   
     }
 }

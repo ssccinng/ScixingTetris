@@ -9,8 +9,12 @@ namespace ScixingTetrisCore.Interface
     public interface ITetrisMino
     {
         string Name { get; }
+        MinoType MinoType { get; }
+        static ITetrisMino Instance { get; }
 
         (int X, int Y)[] GetMinoField(int Stage);
+        ITetrisMino[] GetMinoList();
+
         //void 
     }
 }

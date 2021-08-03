@@ -22,29 +22,29 @@ namespace ScixingTetrisCore
 
         // 内部坐标
         protected int _x, _y;
-        public virtual void LeftRoll()
+        public void LeftRoll()
         {
             Stage += 3;
             Stage %= 4;
         }
-        public virtual void RightRoll()
+        public void RightRoll()
         {
             Stage++;
             Stage %= 4;
         }
-        public virtual void MoveLeft()
+        public void MoveLeft()
         {
             _y -= 1;
         }
-        public virtual void MoveRight()
+        public void MoveRight()
         {
             _y += 1;
         }
-        public virtual void MoveBottom()
+        public void MoveBottom()
         {
             _x -= 1;
         }
-        public virtual void MoveTop()
+        public void MoveTop()
         {
             _x += 1;
         }
@@ -56,6 +56,15 @@ namespace ScixingTetrisCore
             {
                 res[i] = (res[i].X + _x, res[i].Y + _y);
             }
+            return res;
+        }
+
+        public ITetrisMinoStatus Clone()
+        {
+            var res = new TetrisMinoStatus();
+            res.TetrisMino = this.TetrisMino;
+            res.Position = this.Position;
+            res.Stage = this.Stage;
             return res;
         }
     }

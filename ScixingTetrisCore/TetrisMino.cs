@@ -442,11 +442,11 @@ namespace ScixingTetrisCore
                 //0b100,
                 //0b111,
                 //0b000,
-                new [] { (0, 2), (1, 0), (1, 1), (1, 2) },
+                new [] { (0, 0), (1, 0), (1, 1), (1, 2) },
                 //0b010,
                 //0b010,
                 //0b110,
-                new [] { (0, 0), (0, 1), (1, 1), (2, 1) },
+                new [] { (0, 1), (1, 1), (2, 0), (2, 1) },
             },
             Width = 3,
             Height = 3,
@@ -509,6 +509,20 @@ namespace ScixingTetrisCore
         public (int X, int Y)[] GetMinoField(int Stage)
         {
             return ((int X, int Y)[])_field[Stage].Clone();
+        }
+
+        public ITetrisMino[] GetMinoList()
+        {
+            return new[]
+            {
+                I,
+                O,
+                T,
+                J,
+                L,
+                Z,
+                S,
+            };
         }
     }
 }

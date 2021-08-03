@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ScixingTetrisCore.Interface
 {
-    public interface IGarbageGenerator
+    public interface ITetrisTreeNode
     {
-        List<int> GetBitGarbage(List<int> GarbageList);
-        List<byte[]> GetGarbage(List<int> GarbageList);
+
     }
 }

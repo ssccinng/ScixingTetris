@@ -12,44 +12,84 @@ namespace ScixingTetrisCore.Rule
         {
             KickTable = (minoType) => minoType switch
             {
-                MinoType.SC_I => new[,]
+                MinoType.SC_I => new[]
                 {
-                    { (0, 0), (-2, 0), (+1, 0), (-2, -1), (+1, +2) },
-                    { (0, 0), (-1, 0), (+2, 0), (-1, +2), (+2, -1) },
-                    { (0, 0), (+2, 0), (-1, 0), (+2, +1), (-1, -2) },
-                    { (0, 0), (+1, 0), (-2, 0), (+1, -2), (-2, +1) },
+                    new [] { (0, 0), (-2, 0), (+1, 0), (-2, -1), (+1, +2) },
+                    new [] { (0, 0), (-1, 0), (+2, 0), (-1, +2), (+2, -1) },
+                    new [] { (0, 0), (+2, 0), (-1, 0), (+2, +1), (-1, -2) },
+                    new [] { (0, 0), (+1, 0), (-2, 0), (+1, -2), (-2, +1) },
                 },
-                MinoType.SC_O => new[,]
+                MinoType.SC_O => new[]
                 {
-                    { (0, 0) },
-                    { (0, 0) },
-                    { (0, 0) },
-                    { (0, 0) },
+                    new []{ (0, 0) },
+                    new []{ (0, 0) },
+                    new []{ (0, 0) },
+                    new []{ (0, 0) },
                 },
-                >= MinoType.SC_T and <= MinoType.SC_Z => new[,]
+                >= MinoType.SC_T and <= MinoType.SC_Z => new[]
                 {
-                    { (0, 0), (-1, 0), (-1, +1), (0, -2), (-1, -2) },
-                    { (0, 0), (+1, 0), (+1, -1), (0, +2), (+1, +2) },
-                    { (0, 0), (+1, 0), (+1, +1), (0, -2), (+1, -2) },
-                    { (0, 0), (-1, 0), (-1, -1), (0, +2), (-1, +2) },
+                    new []{ (0, 0), (-1, 0), (-1, +1), (0, -2), (-1, -2) },
+                    new []{ (0, 0), (+1, 0), (+1, -1), (0, +2), (+1, +2) },
+                    new []{ (0, 0), (+1, 0), (+1, +1), (0, -2), (+1, -2) },
+                    new []{ (0, 0), (-1, 0), (-1, -1), (0, +2), (-1, +2) },
                 },
                 _ => null
             },
         };
-        public Func<MinoType, (int x, int y)[,]> KickTable;
-        public Func<MinoType, (int x, int y)[,]> _180KickTable;
-
-        public (bool isSuccess, int kickCnt) LeftRotation(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus)
+        public static readonly RotationSystem Geek = new()
         {
-            throw new NotImplementedException();
+            KickTable = (minoType) => minoType switch
+            {
+                _  => new[]
+                {
+                    new []{ (0, 0) },
+                    new []{ (0, 0) },
+                    new []{ (0, 0) },
+                    new []{ (0, 0) },
+                },
+            },
+        };
+        // 竟然要交换变量位置（
+        public Func<MinoType, (int y, int x)[][]> KickTable;
+        public Func<MinoType, (int y, int x)[][]> _180KickTable;
+
+        public (bool isSuccess, int kickCnt) LeftRotation(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
+        {
+            var kickTable = KickTable(tetrisMinoStatus.TetrisMino.MinoType)[(tetrisMinoStatus.Stage + 3) % 4];
+            var temp = tetrisMinoStatus.Position;
+            tetrisMinoStatus.LeftRoll();
+            for (int i = 0; i < kickTable.Length; ++i)
+            {
+                tetrisMinoStatus.Position = (temp.X - kickTable[i].x, temp.Y - kickTable[i].y);
+                if (tetrisGameBoard.TetrisRule.CheckMinoOk(tetrisGameBoard, tetrisMinoStatus))
+                {
+                    return (true, i);
+                }
+            }
+            tetrisMinoStatus.RightRoll();
+            tetrisMinoStatus.Position = temp;
+            return (false, -1);
         }
 
-        public (bool isSuccess, int kickCnt) RightRotation(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus)
+        public (bool isSuccess, int kickCnt) RightRotation(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
-            throw new NotImplementedException();
+            var kickTable = KickTable(tetrisMinoStatus.TetrisMino.MinoType)[tetrisMinoStatus.Stage];
+            var temp = tetrisMinoStatus.Position;
+            tetrisMinoStatus.RightRoll();
+            for (int i = 0; i < kickTable.Length; ++i)
+            {
+                tetrisMinoStatus.Position = (temp.X + kickTable[i].x, temp.Y + kickTable[i].y);
+                if (tetrisGameBoard.TetrisRule.CheckMinoOk(tetrisGameBoard, tetrisMinoStatus))
+                {
+                    return (true, i);
+                }
+            }
+            tetrisMinoStatus.LeftRoll();
+            tetrisMinoStatus.Position = temp;
+            return (false, -1);
         }
 
-        public (bool isSuccess, int kickCnt) _180Rotation(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus)
+        public (bool isSuccess, int kickCnt) _180Rotation(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
             throw new NotImplementedException();
         }

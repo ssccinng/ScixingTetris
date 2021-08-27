@@ -9,10 +9,9 @@ namespace ScixingTetrisCore.Interface
     /// <summary>
     /// 游戏board接口
     /// </summary>
-    public interface ITetrisGameBoard: ITetrisBoard
+    public interface ITetrisGameBoard: ITetrisRuleBoard
     {
-        ITetrisRule TetrisRule { get; }
-        bool IsDead { get; }
+        
         // 需要吗
         /// <summary>
         /// Next表

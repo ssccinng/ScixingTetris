@@ -18,5 +18,14 @@ namespace ScixingTetrisCore.AI
         public bool IsExtend; // 需要吗（？
         // 节点评分
         public int Score;
+        public int ChildBestScore;
+        public TetrisTreeNode Parent;
+        public List<TetrisTreeNode> ChirdList;
+
+        public void Extend()
+        {
+
+            // Getchild
+        }
     }
 }

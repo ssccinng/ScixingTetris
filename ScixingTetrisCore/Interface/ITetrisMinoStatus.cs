@@ -18,10 +18,10 @@ namespace ScixingTetrisCore.Interface
         void LeftRoll();
         void RightRoll();
 
-        void MoveLeft();
-        void MoveRight();
-        void MoveBottom();
-        void MoveTop();
+        void MoveLeft(int distance = 1);
+        void MoveRight(int distance = 1);
+        void MoveBottom(int distance = 1);
+        void MoveTop(int distance = 1);
 
         (int X, int Y)[] GetMinoFieldListInBoard();
 

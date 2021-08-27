@@ -108,7 +108,7 @@ namespace ScixingTetrisCore
         {
             if (x >= 0 && x < Height && y >= 0 && y < Width)
             {
-                return ((Field[x] >> y) & 1) == 1;
+                return ((Field[x] >> y) & 1) == 0;
             }
             return false;
         }

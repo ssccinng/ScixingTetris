@@ -8,8 +8,8 @@ namespace ScixingTetrisCore.Interface
 {
     public interface IRotationSystem
     {
-        (bool isSuccess, int kickCnt) LeftRotation(ITetrisGameBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
-        (bool isSuccess, int kickCnt) RightRotation(ITetrisGameBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
-        (bool isSuccess, int kickCnt) _180Rotation(ITetrisGameBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
+        (bool isSuccess, int kickCnt) LeftRotation(ITetrisRuleBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
+        (bool isSuccess, int kickCnt) RightRotation(ITetrisRuleBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
+        (bool isSuccess, int kickCnt) _180Rotation(ITetrisRuleBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
     }
 }

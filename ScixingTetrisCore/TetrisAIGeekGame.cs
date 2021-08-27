@@ -13,7 +13,7 @@ namespace ScixingTetrisCore
         public ITetrisAI TetrisAI;
 
         // 完全的工具board 不有任何多于操作
-        public ITetrisGameBoard TetrisGameBoard;
+        public GeekTetrisAIBoard TetrisGameBoard;
 
         public TetrisAIMessage TetrisAIMessage { get; private set; }
 
@@ -23,7 +23,7 @@ namespace ScixingTetrisCore
             TetrisAI.Init();
         }
 
-        public TetrisAIGeekGame(ITetrisAI tetrisAI, ITetrisGameBoard tetrisGameBoard)
+        public TetrisAIGeekGame(ITetrisAI tetrisAI, GeekTetrisAIBoard tetrisGameBoard)
         {
             TetrisAI = tetrisAI;
             TetrisGameBoard = tetrisGameBoard;
@@ -42,46 +42,49 @@ namespace ScixingTetrisCore
                 TetrisGameBoard.PrintBoard();
                 Thread.Sleep(500);
                 TetrisAIMessage tetrisAIMessage  = TetrisAI.GetMove();
+                if (tetrisAIMessage == null) continue;
                 TetrisAI.MoveNext();
-                for (int i = 0; i < tetrisAIMessage.Path.Count; ++i)
-                {
-                    switch (tetrisAIMessage.Path[i])
-                    {
-                        case TetrisMovement.Left:
-                            TetrisGameBoard.MoveLeft();
-                            break;
-                        case TetrisMovement.Left3:
-                            break;
-                        case TetrisMovement.HugeLeft:
-                            break;
-                        case TetrisMovement.Right:
-                            TetrisGameBoard.MoveRight();
-                            break;
-                        case TetrisMovement.Right3:
-                            break;
-                        case TetrisMovement.HugeRight:
-                            break;
-                        case TetrisMovement.CW:
-                            break;
-                        case TetrisMovement.CCW:
-                            break;
-                        case TetrisMovement._180:
-                            break;
-                        case TetrisMovement.SoftDrop:
-                            TetrisGameBoard.SoftDrop();
-                            break;
-                        case TetrisMovement.SonicDrop:
-                            TetrisGameBoard.SonicDrop();
-                            break;
-                        case TetrisMovement.HardDrop:
-                            TetrisGameBoard.HardDrop();
-                            break;
-                        case TetrisMovement.Wait:
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                TetrisGameBoard.LockMino(tetrisAIMessage.TetrisMinoStatus);
+
+                //for (int i = 0; i < tetrisAIMessage.Path.Count; ++i)
+                //{
+                //    switch (tetrisAIMessage.Path[i])
+                //    {
+                //        case TetrisMovement.Left:
+                //            TetrisGameBoard.MoveLeft();
+                //            break;
+                //        case TetrisMovement.Left3:
+                //            break;
+                //        case TetrisMovement.HugeLeft:
+                //            break;
+                //        case TetrisMovement.Right:
+                //            TetrisGameBoard.MoveRight();
+                //            break;
+                //        case TetrisMovement.Right3:
+                //            break;
+                //        case TetrisMovement.HugeRight:
+                //            break;
+                //        case TetrisMovement.CW:
+                //            break;
+                //        case TetrisMovement.CCW:
+                //            break;
+                //        case TetrisMovement._180:
+                //            break;
+                //        case TetrisMovement.SoftDrop:
+                //            TetrisGameBoard.SoftDrop();
+                //            break;
+                //        case TetrisMovement.SonicDrop:
+                //            TetrisGameBoard.SonicDrop();
+                //            break;
+                //        case TetrisMovement.HardDrop:
+                //            TetrisGameBoard.HardDrop();
+                //            break;
+                //        case TetrisMovement.Wait:
+                //            break;
+                //        default:
+                //            break;
+                //    }
+                //}
                 // 执行
             }
 

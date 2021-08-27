@@ -32,21 +32,21 @@ namespace ScixingTetrisCore
             Stage++;
             Stage %= 4;
         }
-        public void MoveLeft()
+        public void MoveLeft(int distance = 1)
         {
-            _y -= 1;
+            _y -= distance;
         }
-        public void MoveRight()
+        public void MoveRight(int distance = 1)
         {
-            _y += 1;
+            _y += distance;
         }
-        public void MoveBottom()
+        public void MoveBottom(int distance = 1)
         {
-            _x -= 1;
+            _x -= distance;
         }
-        public void MoveTop()
+        public void MoveTop(int distance = 1)
         {
-            _x += 1;
+            _x += distance;
         }
 
         public (int, int)[] GetMinoFieldListInBoard()

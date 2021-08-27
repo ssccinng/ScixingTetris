@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ScixingTetrisCore.Interface
 {
-    public interface IFieldEvaluator
+    public interface ITetrisRuleBoard : ITetrisBoard
     {
-        double GetFieldScore(ITetrisAIBoard tetrisGameBoard);
+        ITetrisRule TetrisRule { get; }
+        bool IsDead { get; }
     }
 }

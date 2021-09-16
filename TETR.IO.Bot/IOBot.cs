@@ -113,7 +113,7 @@ namespace TETR.IO.Bot
         {
             _IOBoard = new();
             _garbage = 0;
-            _startTime = DateTime.Now;
+            //_startTime = DateTime.Now;
             _nowIdx = 0;
             try
             {
@@ -260,6 +260,10 @@ namespace TETR.IO.Bot
                         break;
                 }
                 if (move == 'V') break;
+            }
+            if (_nowIdx == 0)
+            {
+                _startTime = DateTime.Now;
             }
             _nowIdx++;
             TimeSpan hopeTime = TimeSpan.FromSeconds(60.0 / _botSetting.BPM * _nowIdx);

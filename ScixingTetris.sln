@@ -7,7 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScixingTetris", "ScixingTet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScixingTetrisCore", "ScixingTetrisCore\ScixingTetrisCore.csproj", "{5832DB4B-2F85-46F2-A5DE-781EB065FF21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekTetrisTest", "GeekTetrisTest\GeekTetrisTest.csproj", "{97F1B560-5668-41B9-9A15-D755233068D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekTetrisTest", "GeekTetrisTest\GeekTetrisTest.csproj", "{97F1B560-5668-41B9-9A15-D755233068D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingofSwl.Server", "KingofSwl\Server\KingofSwl.Server.csproj", "{02A14632-3B9F-4B84-B20B-01E0B59B0D9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingofSwl.Client", "KingofSwl\Client\KingofSwl.Client.csproj", "{25A274EA-699D-401B-9DD2-56AF50C4F0D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingofSwl.Shared", "KingofSwl\Shared\KingofSwl.Shared.csproj", "{EDD042E4-B274-4CD1-9B70-685291442483}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TETR.IO.Bot", "TETR.IO.Bot\TETR.IO.Bot.csproj", "{B2B7BE41-E4C4-4AD2-9FB0-2CAA6EC6B91D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +35,22 @@ Global
 		{97F1B560-5668-41B9-9A15-D755233068D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97F1B560-5668-41B9-9A15-D755233068D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97F1B560-5668-41B9-9A15-D755233068D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02A14632-3B9F-4B84-B20B-01E0B59B0D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A14632-3B9F-4B84-B20B-01E0B59B0D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A14632-3B9F-4B84-B20B-01E0B59B0D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A14632-3B9F-4B84-B20B-01E0B59B0D9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25A274EA-699D-401B-9DD2-56AF50C4F0D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25A274EA-699D-401B-9DD2-56AF50C4F0D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25A274EA-699D-401B-9DD2-56AF50C4F0D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25A274EA-699D-401B-9DD2-56AF50C4F0D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD042E4-B274-4CD1-9B70-685291442483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD042E4-B274-4CD1-9B70-685291442483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD042E4-B274-4CD1-9B70-685291442483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD042E4-B274-4CD1-9B70-685291442483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2B7BE41-E4C4-4AD2-9FB0-2CAA6EC6B91D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B7BE41-E4C4-4AD2-9FB0-2CAA6EC6B91D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B7BE41-E4C4-4AD2-9FB0-2CAA6EC6B91D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B7BE41-E4C4-4AD2-9FB0-2CAA6EC6B91D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

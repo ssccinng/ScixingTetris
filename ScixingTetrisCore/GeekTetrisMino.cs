@@ -230,6 +230,6 @@ namespace ScixingTetrisCore
                 Z,
                 S,
             };
-        }
+        } 
     }
 }

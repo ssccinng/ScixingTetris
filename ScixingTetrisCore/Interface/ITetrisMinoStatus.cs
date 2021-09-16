@@ -14,7 +14,8 @@ namespace ScixingTetrisCore.Interface
         (int X, int Y) Position { get; set; }
         int Stage { get; set; }
         ITetrisMino TetrisMino { get; set; }
-
+        // 欠考虑 可能要改
+        bool LastRotation { get; set; }
         void LeftRoll();
         void RightRoll();
 

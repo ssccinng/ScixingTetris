@@ -57,6 +57,7 @@ namespace ScixingTetrisCore.Rule
 
         protected IFieldCheck _fieldCheck;
         public abstract bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
+        public abstract bool CheckPostionOk(ITetrisBoard tetrisBoard, int x, int y);
 
         public abstract List<int> GetAttack(AttackMessage attackMessage);
     }
@@ -73,6 +74,11 @@ namespace ScixingTetrisCore.Rule
         public override bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
             return _fieldCheck.IsMinoOk(tetrisBoard, tetrisMinoStatus);
+        }
+
+        public override bool CheckPostionOk(ITetrisBoard tetrisBoard, int x, int y)
+        {
+            return _fieldCheck.IsPositionOk(tetrisBoard, x, y);
         }
 
         public override List<int> GetAttack(AttackMessage attackMessage)
@@ -93,6 +99,11 @@ namespace ScixingTetrisCore.Rule
         public override bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
             return _fieldCheck.IsMinoOk(tetrisBoard, tetrisMinoStatus);
+        }
+
+        public override bool CheckPostionOk(ITetrisBoard tetrisBoard, int x, int y)
+        {
+            throw new NotImplementedException();
         }
 
         public override List<int> GetAttack(AttackMessage attackMessage)

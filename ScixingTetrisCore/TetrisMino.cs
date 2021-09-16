@@ -524,5 +524,18 @@ namespace ScixingTetrisCore
                 S,
             };
         }
+        public static ITetrisMino[] GetMinoListS()
+        {
+            return new[]
+            {
+                I,
+                O,
+                T,
+                J,
+                L,
+                Z,
+                S,
+            };
+        }
     }
 }

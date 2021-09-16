@@ -165,6 +165,7 @@ namespace ScixingTetrisCore.Rule
                 tetrisMinoStatus.Position = (temp.X - kickTable[i].x, temp.Y - kickTable[i].y);
                 if (tetrisGameBoard.TetrisRule.CheckMinoOk(tetrisGameBoard, tetrisMinoStatus))
                 {
+                    tetrisMinoStatus.LastRotation = true;
                     return (true, i);
                 }
             }
@@ -183,6 +184,7 @@ namespace ScixingTetrisCore.Rule
                 tetrisMinoStatus.Position = (temp.X + kickTable[i].x, temp.Y + kickTable[i].y);
                 if (tetrisGameBoard.TetrisRule.CheckMinoOk(tetrisGameBoard, tetrisMinoStatus))
                 {
+                    tetrisMinoStatus.LastRotation = true;
                     return (true, i);
                 }
             }

@@ -1,0 +1,54 @@
+﻿@page "/PersonTrainer"
+
+<h4>@TbValue </h4>
+<h4>@EventInfo</h4>
+<table>
+    @for (int i = 0; i < 20; ++i)
+    {
+        <tr>
+            @for (int j = 0; j < 10; ++j)
+            {
+                <td class="border border-dark" width="30" height="30" style="background-color:lightblue;"></td>
+            }
+        </tr>
+    }
+
+    <span @onkeypress="@KeyHandlerTb" @onkeydown="@KeyHandlerTb">
+    </span>
+
+    <span @onkeypress="@KeyHandlerNtb" @onkeydown="@KeyHandlerNtb">
+        @*<InputText @bind-Value="@NtbValue"></InputText>*@
+    </span>
+
+</table>
+@code {
+
+    string KeyPressed = "";
+    string EventInfo = "";
+    private void KeyboardEventHandler(KeyboardEventArgs args)
+    {
+        KeyPressed = "Key Pressed is " + args.Key;
+        EventInfo = "Event Type " + args.Type;
+    }
+
+    MarkupString logger { get; set; }
+    string TbValue { get; set; } = "lorem ipsum";
+    int NtbValue { get; set; } = 123;
+
+    void LogEvent(string evt)
+    {
+        logger = new MarkupString($"{logger}{evt} on {DateTime.Now.ToLongTimeString()}<br />");
+    }
+
+    void KeyHandlerTb(KeyboardEventArgs e)
+    {
+        string evtInfo = $"Textbox: {e.Type}, key: {e.Key}";
+        LogEvent(evtInfo);
+    }
+
+    void KeyHandlerNtb(KeyboardEventArgs e)
+    {
+        string evtInfo = $"Numeric: {e.Type}, key: {e.Key}";
+        LogEvent(evtInfo);
+    }
+}

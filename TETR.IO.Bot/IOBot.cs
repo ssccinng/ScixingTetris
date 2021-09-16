@@ -50,18 +50,7 @@ namespace TETR.IO.Bot
         public IOBot()
         {
 
-            try
-            {
-                _botSetting = JsonSerializer.Deserialize<BotSetting>(System.IO.File.ReadAllText("TetrSetting.json"));
-            }
-            catch (Exception)
-            {
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                };
-                System.IO.File.WriteAllTextAsync("TetrSetting.json", JsonSerializer.Serialize(_botSetting, options));
-            }
+            
 
 
             Post("/newGame", async (req, res) =>
@@ -126,7 +115,18 @@ namespace TETR.IO.Bot
             _garbage = 0;
             _startTime = DateTime.Now;
             _nowIdx = 0;
-
+            try
+            {
+                _botSetting = JsonSerializer.Deserialize<BotSetting>(System.IO.File.ReadAllText("TetrSetting.json"));
+            }
+            catch (Exception)
+            {
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                };
+                System.IO.File.WriteAllTextAsync("TetrSetting.json", JsonSerializer.Serialize(_botSetting, options));
+            }
             // 读取配置文件
         }
 

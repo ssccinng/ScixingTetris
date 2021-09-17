@@ -42,7 +42,7 @@ namespace ScixingTetrisCore
         public int B2B { get; set; }
         public int Combo { get; set; }
 
-        public (int X, int Y) DefaultPos = (21, 3);
+        public (int X, int Y) DefaultPos = (20, 3);
         // 此处还欠考虑
         public TetrisGameBoard(int Width = 10, int Height = 40, int ShowHeight = 20, ITetrisRule tetrisRule = null, ITetrisMinoGenerator tetrisMinoGenerator = null)
         {

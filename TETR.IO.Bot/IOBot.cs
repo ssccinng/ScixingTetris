@@ -34,6 +34,7 @@ namespace TETR.IO.Bot
         public int NextCnt { get; set; } = 6;
         public int Level { get; set; } = 8;
         public int BPM { get; set; } = 200;
+        //public bool AutoLevel { get; set; } = true;
 
     }
     public class IOBot : CarterModule
@@ -190,7 +191,7 @@ namespace TETR.IO.Bot
 
             var path = ZZZTOJCore.TetrisAI(field2, field1, 10, 22, _IOBoard.B2B,
                     _IOBoard.Combo, _IOBoard.NextQueue.Take(_botSetting.NextCnt + 1).Select(s => s.Name[0]).ToArray(), (_IOBoard.HoldMino == null ? ' ' : _IOBoard.HoldMino.Name[0]),
-                    true, _IOBoard.TetrisMinoStatus.TetrisMino.Name[0], 3, 22 - _IOBoard.TetrisMinoStatus.Position.X, 0, true, false, garbage, new[] { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 5, -1 }, _botSetting.NextCnt, _botSetting.Level, 0);
+                    true, _IOBoard.TetrisMinoStatus.TetrisMino.Name[0], 3, 19 - _IOBoard.TetrisMinoStatus.Position.X, 0, true, false, garbage, new[] { 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, -1 }, _botSetting.NextCnt, _botSetting.Level, 0);
             string resultpath = Marshal.PtrToStringAnsi(path);
             //Console.WriteLine(resultpath);
             MoveResult moveResult = new MoveResult();
@@ -232,9 +233,6 @@ namespace TETR.IO.Bot
                         }
                         break;
                     case 'd':
-                        _IOBoard.SoftDrop();
-                        moveResult.moves.Add("SoftDrop");
-                        break;
                     case 'D':
 
                         _IOBoard.SonicDrop();

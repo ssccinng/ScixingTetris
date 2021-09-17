@@ -25,6 +25,7 @@ namespace TETR.IO.Bot
                     builder.WithOrigins("https://tetr.io").WithMethods("POST", "OPTION").WithHeaders("Content-Type");
                 });
             });
+            services.AddRazorPages();
             services.AddCarter();
             // options => {
             //     options.OpenApi.ServerUrls = new[] { "http://127.0.0.1:47326" };
@@ -44,7 +45,10 @@ namespace TETR.IO.Bot
             app.UseRouting();
             app.UseCors();
             app.UseEndpoints(builder => builder.MapCarter());
-
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
             //app.UseEndpoints(endpoints =>
             //{
             //    endpoints.MapGet("/", async context =>

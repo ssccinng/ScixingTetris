@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingofSwl.Client", "KingofS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingofSwl.Shared", "KingofSwl\Shared\KingofSwl.Shared.csproj", "{EDD042E4-B274-4CD1-9B70-685291442483}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TETR.IO.Bot", "TETR.IO.Bot\TETR.IO.Bot.csproj", "{B2B7BE41-E4C4-4AD2-9FB0-2CAA6EC6B91D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TETR.IO.Bot.X86", "TETR.IO.Bot\TETR.IO.Bot.X86.csproj", "{B2B7BE41-E4C4-4AD2-9FB0-2CAA6EC6B91D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

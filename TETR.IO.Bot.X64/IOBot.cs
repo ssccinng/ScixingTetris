@@ -71,7 +71,7 @@ namespace TETR.IO.Bot.X64
                 {
                     ColdClearCore.cc_destroy_async(_bot);
                 }
-                
+
                 Console.WriteLine("游戏结束！");
             });
 
@@ -142,10 +142,10 @@ namespace TETR.IO.Bot.X64
                 ColdClearCore.cc_default_weights(ref _botSetting.CCWeights);
                 System.IO.File.WriteAllTextAsync("TetrSetting.json", JsonSerializer.Serialize(_botSetting, options));
             }
-            
+
             if (_botSetting.WeightType == WeightType.Default)
             {
-                
+
                 ColdClearCore.cc_default_weights(ref _botSetting.CCWeights);
             }
             else if (_botSetting.WeightType == WeightType.Fast)
@@ -160,10 +160,13 @@ namespace TETR.IO.Bot.X64
 
         private void AddNext(string[] nextQueue)
         {
+
             foreach (string mino in nextQueue)
             {
                 _nextQueue.Enqueue((CCPiece)Enum.Parse(typeof(CCPiece), "CC_" + mino));
             }
+
+
             //Console.WriteLine("Next加入队列...");
             UpdateNext();
 
@@ -173,7 +176,7 @@ namespace TETR.IO.Bot.X64
         {
             lock (_lockBot)
             {
-                Console.WriteLine(_nextQueue.Count);
+                //Console.WriteLine(_nextQueue.Count);
                 while (_pieceCnt < _botSetting.NextCnt && _nextQueue.Count > 0)
                 {
                     ColdClearCore.cc_add_next_piece_async(_bot, _nextQueue.Dequeue());
@@ -187,18 +190,19 @@ namespace TETR.IO.Bot.X64
         {
 
             if (board is null) return;
-            JsonElement data = board.RootElement.GetProperty("board");
-            byte[] ff = new byte[400];
-            for (int i = 39; i >= 0; --i)
-            {
-                for (int j = 0; j < 10; ++j)
-                {
-                    ff[(39 - i) * 10 + j] = (byte)(data[i][j].GetString() == null ? 0 : 1);
-                }
-            }
-            
             lock (_lockBot)
             {
+                JsonElement data = board.RootElement.GetProperty("board");
+                byte[] ff = new byte[400];
+                for (int i = 39; i >= 0; --i)
+                {
+                    for (int j = 0; j < 10; ++j)
+                    {
+                        ff[(39 - i) * 10 + j] = (byte)(data[i][j].GetString() == null ? 0 : 1);
+                    }
+                }
+
+
                 ColdClearCore.cc_reset_async(_bot, ff, 0, 0);
             }
 
@@ -208,7 +212,7 @@ namespace TETR.IO.Bot.X64
         private MoveResult GetMove(int garbage)
         {
             MoveResult moveResult = new MoveResult();
-            
+
             lock (_lockBot)
             {
                 //Console.WriteLine("开始请求调用");
@@ -218,10 +222,12 @@ namespace TETR.IO.Bot.X64
                 CCBotPollStatus aa;
                 while ((aa = ColdClearCore.cc_poll_next_move(_bot, ref cCMove, null, IntPtr.Zero)) != CCBotPollStatus.CC_MOVE_PROVIDED)
                 {
-                    Console.WriteLine(aa);
+                    if (aa == CCBotPollStatus.CC_BOT_DEAD) return null;
+                    //Console.WriteLine(aa);
+                    //Console.WriteLine(_pieceCnt);
                     Task.Delay(50).Wait();
                 }
-                Console.WriteLine(aa);
+                //Console.WriteLine(aa);
                 //Console.WriteLine("开始写入操作");
                 for (int i = 0; i < cCMove.movement_count; ++i)
                 {
@@ -245,7 +251,7 @@ namespace TETR.IO.Bot.X64
                         default:
                             break;
                     }
-                    
+
                 }
                 if (cCMove.hold == 1) moveResult.hold = true;
                 moveResult.expected_cells = new int[4][];
@@ -261,15 +267,11 @@ namespace TETR.IO.Bot.X64
                 }
                 _nowIdx++;
                 TimeSpan hopeTime = TimeSpan.FromSeconds(60.0 / _botSetting.BPM * _nowIdx);
-                //Console.WriteLine("延时" + (_startTime + hopeTime - DateTime.Now).TotalMilliseconds + "毫秒");
                 if (DateTime.Now < _startTime + hopeTime)
                 {
                     Task.Delay(_startTime + hopeTime - DateTime.Now).Wait();
                 }
             }
-            
-
-            //_IOBoard.PrintBoard(WithMino:false);
             _pieceCnt--;
             UpdateNext();
             return moveResult;

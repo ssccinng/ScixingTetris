@@ -1,6 +1,6 @@
 {
   "NextCnt": 11,
-  "BPM": 200,
+  "BPM": 200000,
   "WeightType": 0, // 0 override, 1 default, 2 fast
   "CCWeights": {
     "back_to_back": 52,

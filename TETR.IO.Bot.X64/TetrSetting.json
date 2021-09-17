@@ -1,0 +1,68 @@
+{
+  "NextCnt": 11,
+  "BPM": 200,
+  "WeightType": 0, // 0 override, 1 default, 2 fast
+  "CCWeights": {
+    "back_to_back": 52,
+    "bumpiness": -24,
+    "bumpiness_sq": -7,
+    "row_transitions": -5,
+    "height": -39,
+    "top_half": -150,
+    "top_quarter": -511,
+    "jeopardy": -11,
+    "cavity_cells": -173,
+    "cavity_cells_sq": -3,
+    "overhang_cells": -34,
+    "overhang_cells_sq": -1,
+    "covered_cells": -17,
+    "covered_cells_sq": -1,
+    "well_depth": 57,
+    "max_well_depth": 17,
+    "b2b_clear": 104,
+    "clear1": -143,
+    "clear2": -100,
+    "clear3": -58,
+    "clear4": 390,
+    "tspin1": 121,
+    "tspin2": 410,
+    "tspin3": 602,
+    "mini_tspin1": -158,
+    "mini_tspin2": -93,
+    "perfect_clear": 999,
+    "combo_garbage": 150,
+    "move_time": -3,
+    "wasted_t": -152,
+    "use_bag": 1,
+    "timed_jeopardy": 1,
+    "stack_pc_damage": 0,
+    "tslot": [
+      8,
+      148,
+      192,
+      407
+    ],
+    "well_column": [
+      20,
+      23,
+      20,
+      50,
+      59,
+      21,
+      59,
+      10,
+      -10,
+      24
+    ]
+  },
+  "CCOptions": {
+    "mode": 0, // 0 0G, 1 20G, HD_ONLY
+    "spawn_rule": 0, // 0 19or20, 1 21andfall
+    "PcPriority": 1, // 0 none, 1 fast, 2 attack
+    "min_nodes": 0,
+    "max_nodes": 4000000000,
+    "threads": 1,
+    "use_hold": 1,
+    "speculate": 1
+  }
+}

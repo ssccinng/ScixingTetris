@@ -67,7 +67,11 @@ namespace TETR.IO.Bot.X64
             Post("/endGame", async (req, res) =>
             {
                 if (_bot == IntPtr.Zero) return;
-                ColdClearCore.cc_destroy_async(_bot);
+                lock (_lockBot)
+                {
+                    ColdClearCore.cc_destroy_async(_bot);
+                }
+                
                 Console.WriteLine("游戏结束！");
             });
 
@@ -84,7 +88,7 @@ namespace TETR.IO.Bot.X64
             });
             Post("/nextMove", async (req, res) =>
             {
-                Console.WriteLine("请求收到了");
+                //Console.WriteLine("请求收到了");
                 if (_bot == IntPtr.Zero) return;
                 var garbage = await req.Bind<int>();
                 // 重置
@@ -113,17 +117,11 @@ namespace TETR.IO.Bot.X64
         private void Init()
         {
             _nextQueue = new();
-            CCWeights cCWeights = new CCWeights();
-            CCOptions cCOptions = new CCOptions();
 
             Console.WriteLine(1);
 
-            
-            
 
-
-            _botSetting.CCOptions.max_nodes = 100000;
-            
+            _pieceCnt = 0;
             _nowIdx = 0;
             try
             {
@@ -154,9 +152,9 @@ namespace TETR.IO.Bot.X64
             {
                 ColdClearCore.cc_fast_weights(ref _botSetting.CCWeights);
             }
-            Console.WriteLine("数据读取完成");
+            //Console.WriteLine("数据读取完成");
             _bot = ColdClearCore.cc_launch_async(_botSetting.CCOptions, _botSetting.CCWeights, new CCBook(), null, 0);
-            Console.WriteLine($"初始化完成: {_bot}");
+            //Console.WriteLine($"初始化完成: {_bot}");
             // 读取配置文件
         }
 
@@ -166,7 +164,7 @@ namespace TETR.IO.Bot.X64
             {
                 _nextQueue.Enqueue((CCPiece)Enum.Parse(typeof(CCPiece), "CC_" + mino));
             }
-            Console.WriteLine("Next加入队列...");
+            //Console.WriteLine("Next加入队列...");
             UpdateNext();
 
         }
@@ -181,7 +179,7 @@ namespace TETR.IO.Bot.X64
                     ColdClearCore.cc_add_next_piece_async(_bot, _nextQueue.Dequeue());
                     _pieceCnt++;
                 }
-                Console.WriteLine("Next更新完成...");
+                //Console.WriteLine("Next更新完成...");
             }
         }
 
@@ -213,9 +211,9 @@ namespace TETR.IO.Bot.X64
             
             lock (_lockBot)
             {
-                Console.WriteLine("开始请求调用");
+                //Console.WriteLine("开始请求调用");
                 ColdClearCore.cc_request_next_move(_bot, (uint)garbage);
-                Console.WriteLine("请求调用成功");
+                //Console.WriteLine("请求调用成功");
                 CCMove cCMove = new CCMove();
                 CCBotPollStatus aa;
                 while ((aa = ColdClearCore.cc_poll_next_move(_bot, ref cCMove, null, IntPtr.Zero)) != CCBotPollStatus.CC_MOVE_PROVIDED)
@@ -224,7 +222,7 @@ namespace TETR.IO.Bot.X64
                     Task.Delay(50).Wait();
                 }
                 Console.WriteLine(aa);
-                Console.WriteLine("开始写入操作");
+                //Console.WriteLine("开始写入操作");
                 for (int i = 0; i < cCMove.movement_count; ++i)
                 {
                     switch (cCMove.movements[i])

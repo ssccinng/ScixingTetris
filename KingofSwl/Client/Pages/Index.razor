@@ -1,7 +1,25 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@inject IJSRuntime jsRuntime
+@using Microsoft.AspNetCore.Components.Web
 
-Welcome to your new app.
+<div class="jumbotron"  @onkeydown="@KeyDown"  tabindex="0"  @ref="myDiv">
+            <h1 class="display-4"> @KeyPressed </h1>
+</div>
+@code {
+    string KeyPressed = "";
+    protected ElementReference myDiv;  // set the @ref for attribute
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await myDiv.FocusAsync();
+            //await jsRuntime.InvokeVoidAsync("SetFocusToElement", myDiv);
+        }
+    }
+    protected void KeyDown(KeyboardEventArgs args)
+    {
+        KeyPressed = $"Key Pressed: [{args.Key}]";// get key pressed in the arguments
+    }
+}

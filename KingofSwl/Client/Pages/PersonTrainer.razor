@@ -1,28 +1,39 @@
 ﻿@page "/PersonTrainer"
 
-<h4>@TbValue </h4>
-<h4>@EventInfo</h4>
-<table>
-    @for (int i = 0; i < 20; ++i)
-    {
-        <tr>
-            @for (int j = 0; j < 10; ++j)
-            {
-                <td class="border border-dark" width="30" height="30" style="background-color:lightblue;"></td>
-            }
-        </tr>
-    }
 
-    <span @onkeypress="@KeyHandlerTb" @onkeydown="@KeyHandlerTb">
-    </span>
 
-    <span @onkeypress="@KeyHandlerNtb" @onkeydown="@KeyHandlerNtb">
-        @*<InputText @bind-Value="@NtbValue"></InputText>*@
-    </span>
 
-</table>
+<div class="jumbotron" @onkeydown="@KeyDown" tabindex="0" @ref="testRef">
+    <h4>@KeyPressed</h4>
+
+    <table>
+        @for (int i = 0; i < 20; ++i)
+        {
+            int ii = i;
+            <tr>
+                @for (int j = 0; j < 10; ++j)
+                {
+                    int jj = j;
+
+                    <td class="border border-dark" width="30" height="30" style=@($"background-color:{(ii == x && jj == y ? "lightblue" : "white")};")></td>
+                }
+            </tr>
+        }
+
+        @*    <span @onkeypress="@KeyHandlerTb" @onkeydown="@KeyHandlerTb">
+            </span>*@
+        @*    <span @onkeypress="@KeyHandlerNtb" @onkeydown="@KeyHandlerNtb">
+            <InputText @bind-Value="@NtbValue"></InputText>
+            </span>*@
+
+    </table>
+</div>
+@*<input type="text" @onkeypress="KeyboardEventHandler" @ref=testRef hidden />*@
+@*    <span @onkeypress="@KeyHandlerTb" @onkeydown="@KeyHandlerTb">
+    </span>*@
 @code {
-
+    int x = 5, y = 5;
+    private ElementReference testRef;
     string KeyPressed = "";
     string EventInfo = "";
     private void KeyboardEventHandler(KeyboardEventArgs args)
@@ -50,5 +61,36 @@
     {
         string evtInfo = $"Numeric: {e.Type}, key: {e.Key}";
         LogEvent(evtInfo);
+    }
+
+    private string pressedKey = "45468";
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        pressedKey = e.Key;
+        pressedKey = "2";
+        StateHasChanged();
+    }
+    protected void KeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key == "a")
+        {
+            x -= 1;
+        }
+        if (args.Key == "d")
+        {
+            x += 1;
+        }
+        KeyPressed = $"Key Pressed: [{args.Key}]";// get key pressed in the arguments
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await testRef.FocusAsync();
+            //StateHasChanged();
+        }
+        //await testRef.FocusAsync();
     }
 }

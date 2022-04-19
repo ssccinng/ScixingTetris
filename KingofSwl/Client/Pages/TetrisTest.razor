@@ -1,7 +1,7 @@
-﻿@page "/TetrisTest"
+﻿@page "/"
 
 <div class="jumbotron" @onkeydown="@KeyDown" tabindex="0" @ref="testRef">
-    <h4>@KeyPressed</h4>
+    @*<h4 style="background-color:aqua">@KeyPressed</h4>*@
 
     <table>
         @for (int i = 23; i >= 0 ; --i)
@@ -12,7 +12,7 @@
                 {
                     int jj = j;
 
-                    <td class="border border-dark" width="30" height="30" style=@($"background-color:{( !_tetrisBoard.IsCellFreeWithMino(ii, jj) ? "pink" : "white")};")></td>
+                    <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(field[i][j])};")></td>
                 }
             </tr>
         }
@@ -31,36 +31,42 @@
     int x = 5, y = 5;
     private ElementReference testRef;
     string KeyPressed = "";
+    byte[][] field;
 
+    public string GetColor(byte value)
+    {
+        return value < _colorTable.Length ? _colorTable[value] : "black";
+    }
     protected void KeyDown(KeyboardEventArgs args)
     {
-          switch (args.Key)
-                {
-                    case "a":
-                        _tetrisBoard.MoveLeft();
-                        break;
-                    case "d":
-                        _tetrisBoard.MoveRight();
-                        break;
-                    case "s":
-                        _tetrisBoard.SoftDrop();
-                        break;
-                    case "l":
-                        _tetrisBoard.RightRotation();
-                        break;
-                    case "k":
-                        _tetrisBoard.LeftRotation();
-                        break;
-                    case "w":
-                        _tetrisBoard.HardDrop();
-                        break;
-                    case "j":
-                        _tetrisBoard.OnHold();
-                        break;
-                    default:
-                        break;
-                }
+        switch (args.Key)
+        {
+            case "a":
+                _tetrisBoard.MoveLeft();
+                break;
+            case "d":
+                _tetrisBoard.MoveRight();
+                break;
+            case "s":
+                _tetrisBoard.SoftDrop();
+                break;
+            case "l":
+                _tetrisBoard.RightRotation();
+                break;
+            case "k":
+                _tetrisBoard.LeftRotation();
+                break;
+            case "w":
+                _tetrisBoard.HardDrop();
+                break;
+            case "j":
+                _tetrisBoard.OnHold();
+                break;
+            default:
+                break;
+        }
         KeyPressed = $"Key Pressed: [{args.Key}]";// get key pressed in the arguments
+        field = _tetrisBoard.GetGameField();
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

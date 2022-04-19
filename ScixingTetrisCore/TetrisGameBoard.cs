@@ -172,7 +172,7 @@ namespace ScixingTetrisCore
             }
         }
 
-        public bool LockMino()
+        public virtual bool LockMino()
         {
             //if(TetrisRule)
             var minoList = TetrisMinoStatus.GetMinoFieldListInBoard();
@@ -180,7 +180,8 @@ namespace ScixingTetrisCore
             // 断言此时的场地和方块是ok的
             foreach (var pos in minoList)
             {
-                Field[pos.X][pos.Y] = 1;
+                //Field[pos.X][pos.Y] = 1;
+                Field[pos.X][pos.Y] = (byte)(TetrisMinoStatus.TetrisMino.MinoType + 1);
             }
             TryClearLines();
             SpawnNewPiece();
@@ -297,7 +298,7 @@ namespace ScixingTetrisCore
             return true;
         }
 
-        public bool SpawnNewPiece()
+        public virtual bool SpawnNewPiece()
         {
             // 先简略来一个（ 后续要改 要考虑方块用什么 需不需要接口 要看看成不成功
             //TetrisMinoStatus = new TetrisMinoStatus { Position = (19, 3), Stage = 0, TetrisMino = TetrisMinoGenerator.GetNextMino() };

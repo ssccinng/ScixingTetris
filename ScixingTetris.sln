@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31321.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScixingTetris", "ScixingTetris\ScixingTetris.csproj", "{4C01455A-9055-4865-92B4-7B47B0B82DF6}"
 EndProject
@@ -17,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingofSwl.Shared", "KingofS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TETR.IO.Bot.X86", "TETR.IO.Bot\TETR.IO.Bot.X86.csproj", "{B2B7BE41-E4C4-4AD2-9FB0-2CAA6EC6B91D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TETR.IO.Bot.X64", "TETR.IO.Bot.X64\TETR.IO.Bot.X64.csproj", "{1380F9C1-65F3-4D7A-AB93-B5DAEEE9767D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TETR.IO.Bot.X64", "TETR.IO.Bot.X64\TETR.IO.Bot.X64.csproj", "{1380F9C1-65F3-4D7A-AB93-B5DAEEE9767D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hikari", "Hikari\Hikari.csproj", "{1AE23E9F-1245-4299-96CA-9C260B4B6A2C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TETR.IO.Bot.Hikari", "TETR.IO.Bot.Hikari\TETR.IO.Bot.Hikari.csproj", "{45C0D7C6-38AB-4FEA-9365-60F082EF82EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{1380F9C1-65F3-4D7A-AB93-B5DAEEE9767D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1380F9C1-65F3-4D7A-AB93-B5DAEEE9767D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1380F9C1-65F3-4D7A-AB93-B5DAEEE9767D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AE23E9F-1245-4299-96CA-9C260B4B6A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AE23E9F-1245-4299-96CA-9C260B4B6A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AE23E9F-1245-4299-96CA-9C260B4B6A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AE23E9F-1245-4299-96CA-9C260B4B6A2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45C0D7C6-38AB-4FEA-9365-60F082EF82EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C0D7C6-38AB-4FEA-9365-60F082EF82EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45C0D7C6-38AB-4FEA-9365-60F082EF82EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45C0D7C6-38AB-4FEA-9365-60F082EF82EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

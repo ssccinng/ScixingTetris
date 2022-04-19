@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ScixingTetrisCore.AI.TetrisTreeNode" Collapsed="true">
+    <Position X="14.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAAAgAAAIAQAAAAAEAAACgAAAAAAAAAAA=</HashCode>
+      <FileName>AI\TetrisTreeNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.Rule.AttackRule" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAQAAAAAAAAAAAAAAACABAAAAAAgAAAAAAAACAA=</HashCode>
+      <FileName>Rule\AttackRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ScixingTetrisCore.Rule.ARGuildLine" Collapsed="true">
+    <Position X="8.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Rule\AttackRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.Rule.FieldCheck" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rule\FieldCheck.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ScixingTetrisCore.Rule.FCGuildLine" Collapsed="true">
+    <Position X="0.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAgAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rule\FieldCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.Rule.RotationSystem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAACAAAAAIAAAgAAAAAAAABAAACAAgAA=</HashCode>
+      <FileName>Rule\RotationSystem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.Rule.TetrisRule" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAEAJQAABAAAAgIgAAEgAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Rule\TetrisRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ScixingTetrisCore.Rule.GuildLineRule" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Rule\TetrisRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.Rule.GeekTetrisRule" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Rule\TetrisRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.Tools.GarbageGenerator" Collapsed="true">
+    <Position X="5.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\GarbageGenerator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ScixingTetrisCore.Tools.GuildLineGG" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\GarbageGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.Tools.TetrisMinoGenerator&lt;TTetrisMino&gt;" Collapsed="true">
+    <Position X="1.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAIAAAAAAEAAAAAAAAQ=</HashCode>
+      <FileName>Tools\TetrisMinoGenerator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ScixingTetrisCore.Tools.Bag7Generator&lt;TTetrisMino&gt;" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Tools\TetrisMinoGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.Tools.GeekGenerator&lt;TTetrisMino&gt;" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Tools\TetrisMinoGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.AttackMessage" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAACAAAAEAAIAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>AttackMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.FieldEvaluator" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FieldEvaluator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.GeekBitBoard" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAEAQBAAAAAAAAAAAAEAABAAAAAAAABAAAEAAgAA=</HashCode>
+      <FileName>GeekBitBoard.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.GeekWeight" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAQBAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GeekFieldEvaluator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.GeekFieldEvaluator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAEAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>GeekFieldEvaluator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.GeekTetrisAI" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBQAEAAAJAADAAAAAAEAEACAAABAAAAgIAACBAAAAAA=</HashCode>
+      <FileName>GeekTetrisAI.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.GeekTetrisAIBoard" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAQEAQBAAABACAAAQgMEAABAAAAAAIQBAAIAAAgBA=</HashCode>
+      <FileName>GeekTetrisAIBoard.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.GeekTetrisGameBoard" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQACAEEQFgAAHAiAAAZgMEACFAAgCAAJQNIAIEAAggA=</HashCode>
+      <FileName>GeekTetrisGameBoard.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.GeekTetrisMino" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEQUAAEAAAABAAAAACyFAAE=</HashCode>
+      <FileName>GeekTetrisMino.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.KosTetrisGameBoard" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>KosTetrisGameBoard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.MinoMessage" Collapsed="true">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAIAAAAAAAAAAAAAAIAAAAICAAAAAAAAAAAA=</HashCode>
+      <FileName>MinoMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisAI" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAJAADAAAAAAAAEAAAAAAAAAAAIAACAAAAAAA=</HashCode>
+      <FileName>TetrisAI.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisAIGeekGame" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAACAAAAAAUAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>TetrisAIGeekGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisAIHelper" Collapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>TetrisAIHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisAIMessage" Collapsed="true">
+    <Position X="18" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAJAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TetrisAIMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisBitBoard" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAEAQBAAAAAAAAAAAAEAABQAAAAAAQBAAAEAAgAA=</HashCode>
+      <FileName>TetrisBitBoard.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisBoardSetting" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>TetrisBoardSetting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisGame" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TetrisGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisGameBoard" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAEEQFgACBACACARgMEAAFAAACAAJQFAAIEAAgAA=</HashCode>
+      <FileName>TetrisGameBoard.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisMino" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEQUAAEAAAABAAAAACyFAAE=</HashCode>
+      <FileName>TetrisMino.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisMinoStatus" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAwAAAIAAQDAQAgAAAIAAAAAAIAAAAIQAgAAAAAABA=</HashCode>
+      <FileName>TetrisMinoStatus.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisNodeBoard" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TetrisNodeBoard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScixingTetrisCore.TetrisPosition" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>TetrisPosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ScixingTetrisCore.Interface.IAttackRule" Collapsed="true">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Interface\IAttackRule.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.IBoardStatus" Collapsed="true">
+    <Position X="12.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IBoardStatus.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.IFieldCheck" Collapsed="true">
+    <Position X="14.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IFieldCheck.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.IFieldEvaluator" Collapsed="true">
+    <Position X="16.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IFieldEvaluator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.IGarbageGenerator" Collapsed="true">
+    <Position X="18" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IGarbageGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.IMinoMessage" Collapsed="true">
+    <Position X="11" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IMinoMessage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.IRotationSystem" Collapsed="true">
+    <Position X="12.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAIAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Interface\IRotationSystem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisAI" Collapsed="true">
+    <Position X="14.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAJAACAAAAAAAAEAAAAAAAAAAAIAACAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisAI.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisAIBoard" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAACAAAQgIAAAAAAAAAAIQBAAIAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisAIBoard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisBoard" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQBAAAAAAAAAAAAEAABAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisBoard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisBot" Collapsed="true">
+    <Position X="16.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisBot.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisGame" Collapsed="true">
+    <Position X="18" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisGame.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisGameBoard" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAQgIAAAEAAACAAJQFAAIAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisGameBoard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisGameSetting" Collapsed="true">
+    <Position X="11" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisGameSetting.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisMino" Collapsed="true">
+    <Position X="12.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQQAAEAAAABQAAAAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisMino.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisMinoGenerator" Collapsed="true">
+    <Position X="14.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisMinoGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisMinoStatus" Collapsed="true">
+    <Position X="16.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAwAAAAAAADAQAgAAAIAAAAAAIAAAAIQAgAAAAAABA=</HashCode>
+      <FileName>Interface\ITetrisMinoStatus.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisNodeBoard" Collapsed="true">
+    <Position X="18" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisNodeBoard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisRule" Collapsed="true">
+    <Position X="11" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Interface\ITetrisRule.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisRuleBoard" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisRuleBoard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ScixingTetrisCore.Interface.ITetrisTreeNode" Collapsed="true">
+    <Position X="12.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\ITetrisTreeNode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ScixingTetrisCore.Rule.AttackType" Collapsed="true">
+    <Position X="11" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAACAAAAAAAAAAIAAEAAAAAAAAAAQA=</HashCode>
+      <FileName>Rule\AttackRule.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ScixingTetrisCore.ClearType" Collapsed="true">
+    <Position X="12.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAEAAAAAAAEAAAA=</HashCode>
+      <FileName>AttackMessage.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ScixingTetrisCore.TetrisMovement" Collapsed="true">
+    <Position X="16.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACQAAQgAAAARAQRAAAACACAIAAAAAA=</HashCode>
+      <FileName>TetrisAIMessage.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ScixingTetrisCore.MinoType" Collapsed="true">
+    <Position X="14.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABIA0AgAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TetrisMino.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

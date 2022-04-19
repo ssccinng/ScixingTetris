@@ -64,6 +64,10 @@ namespace ScixingTetrisCore
         // 加入接口
         public void GameStart()
         {
+            for (int i = 0; i < 7; i++)
+            {
+                NextQueue.Enqueue(TetrisMinoGenerator.GetNextMino());
+            }
             SpawnNewPiece();
         }
         public int TryClearLines()
@@ -191,7 +195,22 @@ namespace ScixingTetrisCore
             }
             return false;
         }
-
+        public bool IsCellFreeWithMino(int x, int y)
+        {
+            bool flag = true;
+            if (TetrisMinoStatus != null)
+            {
+                foreach (var pos in TetrisMinoStatus?.GetMinoFieldListInBoard())
+                {
+                    if (pos.X == x && pos.Y == y)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            return flag && IsCellFree(x, y);
+        }
         public bool LeftRotation()
         {
             return TetrisRule.RotationSystem.LeftRotation(this, TetrisMinoStatus).isSuccess;
@@ -284,7 +303,8 @@ namespace ScixingTetrisCore
             //TetrisMinoStatus = new TetrisMinoStatus { Position = (19, 3), Stage = 0, TetrisMino = TetrisMinoGenerator.GetNextMino() };
             //TetrisMinoStatus = new TetrisMinoStatus { Position = (19, 3), Stage = 0, TetrisMino = NextQueue.Dequeue() };
             TetrisMinoStatus = new TetrisMinoStatus { Position = DefaultPos, Stage = 0, TetrisMino = NextQueue.Dequeue() };
-
+            // 这个撕烤 根据不同的规则生成
+            NextQueue.Enqueue(TetrisMinoGenerator.GetNextMino());
             // 针对io 立即下降一格
             SoftDrop();
             return true;

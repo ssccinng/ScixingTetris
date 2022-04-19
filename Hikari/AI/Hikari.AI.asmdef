@@ -1,0 +1,23 @@
+{
+    "name": "Hikari.AI",
+    "rootNamespace": "Hikari",
+    "references": [
+        "Hikari.Utils",
+        "Hikari.Puzzle",
+        "Unity.Collections",
+        "Unity.Jobs",
+        "Unity.Burst",
+        "Unity.Mathematics",
+        "MessagePack",
+        "JacksonDunstan.NativeCollections"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

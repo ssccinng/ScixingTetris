@@ -1,0 +1,75 @@
+﻿@page "/TetrisTest"
+
+<div class="jumbotron" @onkeydown="@KeyDown" tabindex="0" @ref="testRef">
+    <h4>@KeyPressed</h4>
+
+    <table>
+        @for (int i = 23; i >= 0 ; --i)
+        {
+            int ii = i;
+            <tr>
+                @for (int j = 0; j < 10; ++j)
+                {
+                    int jj = j;
+
+                    <td class="border border-dark" width="30" height="30" style=@($"background-color:{( !_tetrisBoard.IsCellFreeWithMino(ii, jj) ? "pink" : "white")};")></td>
+                }
+            </tr>
+        }
+
+        @*    <span @onkeypress="@KeyHandlerTb" @onkeydown="@KeyHandlerTb">
+            </span>*@
+        @*    <span @onkeypress="@KeyHandlerNtb" @onkeydown="@KeyHandlerNtb">
+            <InputText @bind-Value="@NtbValue"></InputText>
+            </span>*@
+
+    </table>
+</div>
+
+
+@code {
+    int x = 5, y = 5;
+    private ElementReference testRef;
+    string KeyPressed = "";
+
+    protected void KeyDown(KeyboardEventArgs args)
+    {
+          switch (args.Key)
+                {
+                    case "a":
+                        _tetrisBoard.MoveLeft();
+                        break;
+                    case "d":
+                        _tetrisBoard.MoveRight();
+                        break;
+                    case "s":
+                        _tetrisBoard.SoftDrop();
+                        break;
+                    case "l":
+                        _tetrisBoard.RightRotation();
+                        break;
+                    case "k":
+                        _tetrisBoard.LeftRotation();
+                        break;
+                    case "w":
+                        _tetrisBoard.HardDrop();
+                        break;
+                    case "j":
+                        _tetrisBoard.OnHold();
+                        break;
+                    default:
+                        break;
+                }
+        KeyPressed = $"Key Pressed: [{args.Key}]";// get key pressed in the arguments
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await testRef.FocusAsync();
+            //StateHasChanged();
+        }
+        //await testRef.FocusAsync();
+    }
+}

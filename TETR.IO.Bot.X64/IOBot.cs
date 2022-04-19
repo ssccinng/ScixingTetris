@@ -1,8 +1,6 @@
 ﻿using Carter;
-using ScixingTetrisCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Carter.ModelBinding;
 using System.Text.Json;
@@ -10,7 +8,6 @@ using System.Text.Json.Serialization;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.InteropServices;
 
 namespace TETR.IO.Bot.X64
 {
@@ -70,6 +67,8 @@ namespace TETR.IO.Bot.X64
                 lock (_lockBot)
                 {
                     ColdClearCore.cc_destroy_async(_bot);
+                    _bot = IntPtr.Zero;
+
                 }
 
                 Console.WriteLine("游戏结束！");

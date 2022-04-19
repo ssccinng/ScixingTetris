@@ -191,7 +191,7 @@ namespace TETR.IO.Bot
 
             var path = ZZZTOJCore.TetrisAI(field2, field1, 10, 22, _IOBoard.B2B,
                     _IOBoard.Combo, _IOBoard.NextQueue.Take(_botSetting.NextCnt + 1).Select(s => s.Name[0]).ToArray(), (_IOBoard.HoldMino == null ? ' ' : _IOBoard.HoldMino.Name[0]),
-                    true, _IOBoard.TetrisMinoStatus.TetrisMino.Name[0], 3, 19 - _IOBoard.TetrisMinoStatus.Position.X, 0, true, false, garbage, new[] { 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, -1 }, _botSetting.NextCnt, _botSetting.Level, 0);
+                    true, _IOBoard.TetrisMinoStatus.TetrisMino.Name[0], 3, 18 - _IOBoard.TetrisMinoStatus.Position.X, 0, true, false, garbage, new[] { 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, -1 }, _botSetting.NextCnt, _botSetting.Level, 0);
             string resultpath = Marshal.PtrToStringAnsi(path);
             //Console.WriteLine(resultpath);
             MoveResult moveResult = new MoveResult();

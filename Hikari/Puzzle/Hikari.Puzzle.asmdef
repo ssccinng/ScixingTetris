@@ -1,0 +1,20 @@
+{
+    "name": "Hikari.Puzzle",
+    "rootNamespace": "Hikari",
+    "references": [
+        "Hikari.Utils",
+        "Unity.Mathematics",
+        "Unity.Mathematics.Editor",
+        "UniRx",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

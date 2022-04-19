@@ -67,5 +67,7 @@ namespace ScixingTetrisCore.Interface
         /// <returns></returns>
         bool SpawnNewPiece();
 
+        bool IsCellFreeWithMino(int x, int y);
+        int[,] GetGameField();
     }
 }

@@ -9,5 +9,7 @@ namespace ScixingTetrisCore.Interface
     public interface ITetrisMinoGenerator
     {
         ITetrisMino GetNextMino();
+        ITetrisMino[] GetMinoList();
+        void Reset(bool refreshSeed = true);
     }
 }

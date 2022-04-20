@@ -70,6 +70,72 @@ namespace ScixingTetrisCore.Rule
                 },
 
             },
+            _180KickTable = new Dictionary<MinoType, (int y, int x)[][]>
+            {
+                {
+                    MinoType.SC_I, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_J, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_L, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_O, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_S, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_T, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_Z, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                }
+            }
         };
         public static readonly RotationSystem Geek = new()
         {
@@ -195,7 +261,21 @@ namespace ScixingTetrisCore.Rule
 
         public (bool isSuccess, int kickCnt) _180Rotation(ITetrisRuleBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
-            throw new NotImplementedException();
+            var kickTable = _180KickTable[tetrisMinoStatus.TetrisMino.MinoType][tetrisMinoStatus.Stage];
+            var temp = tetrisMinoStatus.Position;
+            tetrisMinoStatus._180Roll();
+            for (int i = 0; i < kickTable.Length; ++i)
+            {
+                tetrisMinoStatus.Position = (temp.X + kickTable[i].x, temp.Y + kickTable[i].y);
+                if (tetrisGameBoard.TetrisRule.CheckMinoOk(tetrisGameBoard, tetrisMinoStatus))
+                {
+                    tetrisMinoStatus.LastRotation = true;
+                    return (true, i);
+                }
+            }
+            tetrisMinoStatus._180Roll();
+            tetrisMinoStatus.Position = temp;
+            return (false, -1);
         }
     }
 }

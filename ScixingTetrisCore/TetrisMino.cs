@@ -518,10 +518,10 @@ namespace ScixingTetrisCore
                 I,
                 O,
                 T,
-                J,
                 L,
-                Z,
+                J,
                 S,
+                Z,
             };
         }
         public static ITetrisMino[] GetMinoListS()
@@ -531,10 +531,10 @@ namespace ScixingTetrisCore
                 I,
                 O,
                 T,
-                J,
                 L,
-                Z,
+                J,
                 S,
+                Z,
             };
         }
     }

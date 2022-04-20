@@ -64,6 +64,7 @@ namespace ScixingTetrisCore
         // 加入接口
         public void GameStart()
         {
+            NextQueue.Clear();
             for (int i = 0; i < 7; i++)
             {
                 NextQueue.Enqueue(TetrisMinoGenerator.GetNextMino());
@@ -225,7 +226,9 @@ namespace ScixingTetrisCore
 
         public bool _180Rotation()
         {
-            throw new NotImplementedException();
+            return TetrisRule.RotationSystem._180Rotation(this, TetrisMinoStatus).isSuccess;
+
+            //throw new NotImplementedException();
         }
 
         public bool MoveLeft()
@@ -288,6 +291,7 @@ namespace ScixingTetrisCore
             {
                 HoldMino = TetrisMinoStatus.TetrisMino;
                 SpawnNewPiece();
+                SoftDrop();
             }
             else
             {
@@ -314,20 +318,20 @@ namespace ScixingTetrisCore
 
         public virtual void ResetGame()
         {
-            Field = new byte[Height][];
             for (int i = 0; i < Height; ++i)
             {
                 for (int j = 0; j < Width; j++)
                 {
                     Field[i][j] = 0;
                 }
-                Field[i] = new byte[Width];
             }
             for (int i = 0; i < Width; i++)
             {
                 ColHeight[i] = 0;
             }
             HoldMino = null;
+            TetrisMinoGenerator.Reset();
+            GameStart();
             //ColHeight = new int[Width];
         }
     }

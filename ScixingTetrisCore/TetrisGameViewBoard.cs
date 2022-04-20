@@ -59,5 +59,16 @@ namespace ScixingTetrisCore
             }
             return gameField;
         }
+
+        public virtual List<byte[][]> GetNextQueueField()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual byte[][] GetHoldField()
+        {
+            throw new NotImplementedException();
+
+        }
     }
 }

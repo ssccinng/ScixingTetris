@@ -24,19 +24,53 @@
                 </span>*@
 
         </table>
-
+        <div style="width:30px"></div>
         <table>
-            @for (int i = 0; i < 23; ++i)
+
+            @for (int i = 3; i >= 0; --i)
             {
                 <tr>
+                    <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
+
                     @for (int j = 0; j < 4; ++j)
                     {
                         int jj = j;
 
-                        <td class="border border-dark" width="30" height="30" style=@($"background-color:black;")></td>
+                        <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(holdField[i][j])};")></td>
                     }
                 </tr>
             }
+            <tr>
+                <td height=30></td>
+            </tr>
+            @foreach (var m in nextFields)
+            {
+                @for (int i = 3; i >= 1; --i)
+                {
+                    <tr>
+                        <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
+
+                        @for (int j = 0; j < 4; ++j)
+                        {
+                            int jj = j;
+
+                            <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(m[i][j])};")></td>
+                        }
+                    </tr>
+                }
+            }
+
+                <tr>
+
+
+                    @for (int j = 0; j < 5; ++j)
+                    {
+
+                        <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
+                    }
+                </tr>
+
+
         </table>
     </div>
 </div>
@@ -47,6 +81,8 @@
     private ElementReference testRef;
     string KeyPressed = "";
     byte[][] field;
+    byte[][] holdField;
+    List<byte[][]> nextFields;
     TestControl testControl;
     public string GetColor(byte value)
     {
@@ -73,11 +109,17 @@
             case "k":
                 _tetrisBoard.LeftRotation();
                 break;
+            case "z":
+                _tetrisBoard._180Rotation();
+                break;
             case "w":
                 _tetrisBoard.HardDrop();
                 break;
             case "j":
                 _tetrisBoard.OnHold();
+                break;
+            case "r":
+                _tetrisBoard.ResetGame();
                 break;
             default:
                 break;

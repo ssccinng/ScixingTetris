@@ -61,15 +61,15 @@ namespace KingofSwl.Server
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseIdentityServer();
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseIdentityServer();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

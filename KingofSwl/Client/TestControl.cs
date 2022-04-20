@@ -99,7 +99,7 @@ namespace KingofSwl.Client
             //_timer1.Start();
             //_timer1 = Task.Run(() => {while (true) ; });
             _timer = new Timer(new TimerCallback(_ => test()), null, 0, 17);
-            _gtimer = new Timer(new TimerCallback(_ => NextF?.Invoke()), null, 0, 5);
+            _gtimer = new Timer(new TimerCallback(_ => NextF?.Invoke()), null, 0, 16);
         }
         int das = 70;
         int arr = 10;

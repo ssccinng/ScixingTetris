@@ -7,7 +7,7 @@ namespace KingofSwl.Client.Pages
     public partial class TetrisTest
     {
         
-        KosTetrisGameBoard _tetrisBoard = new(ShowHeight: 24, tetrisMinoGenerator: new Bag7Generator<TetrisMino>());
+        KosTetrisGameBoard _tetrisBoard = new(ShowHeight: 25, tetrisMinoGenerator: new Bag7Generator<TetrisMino>());
         string[] _colorTable = new[]
         {
             "white",
@@ -34,9 +34,14 @@ namespace KingofSwl.Client.Pages
         {
             _tetrisBoard.GameStart();
             field = _tetrisBoard.GetGameField();
+            holdField = _tetrisBoard.GetHoldField();
+            nextFields = _tetrisBoard.GetNextQueueField();
             testControl = new TestControl(_tetrisBoard);
             
-            testControl.NextF += () => this.InvokeAsync(() => { field = _tetrisBoard.GetGameField(); this.StateHasChanged(); });
+            testControl.NextF += () => this.InvokeAsync(() => { field = _tetrisBoard.GetGameField(); 
+                holdField = _tetrisBoard.GetHoldField();
+                nextFields = _tetrisBoard.GetNextQueueField();
+                this.StateHasChanged(); });
             return base.OnInitializedAsync();
         }
     }

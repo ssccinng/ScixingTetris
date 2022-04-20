@@ -18,6 +18,7 @@ namespace ScixingTetrisCore.Interface
         bool LastRotation { get; set; }
         void LeftRoll();
         void RightRoll();
+        void _180Roll();
 
         void MoveLeft(int distance = 1);
         void MoveRight(int distance = 1);

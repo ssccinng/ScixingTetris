@@ -6,6 +6,7 @@ namespace KingofSwl.Client.Pages
 {
     public partial class TetrisTest
     {
+        
         KosTetrisGameBoard _tetrisBoard = new(ShowHeight: 24, tetrisMinoGenerator: new Bag7Generator<TetrisMino>());
         string[] _colorTable = new[]
         {
@@ -33,6 +34,9 @@ namespace KingofSwl.Client.Pages
         {
             _tetrisBoard.GameStart();
             field = _tetrisBoard.GetGameField();
+            testControl = new TestControl(_tetrisBoard);
+            
+            testControl.NextF += () => this.InvokeAsync(() => { field = _tetrisBoard.GetGameField(); this.StateHasChanged(); });
             return base.OnInitializedAsync();
         }
     }

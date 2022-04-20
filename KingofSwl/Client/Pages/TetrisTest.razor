@@ -1,29 +1,44 @@
 ﻿@page "/"
 
-<div class="jumbotron" @onkeydown="@KeyDown" tabindex="0" @ref="testRef">
+<div class="jumbotron" @onkeypress="@KeyDown" @onkeyup="@Keyup" tabindex="0" @ref="testRef">
     @*<h4 style="background-color:aqua">@KeyPressed</h4>*@
+    <div class="row">
+        <table>
+            @for (int i = 23; i >= 0; --i)
+            {
+                int ii = i;
+                <tr>
+                    @for (int j = 0; j < 10; ++j)
+                    {
+                        int jj = j;
 
-    <table>
-        @for (int i = 23; i >= 0 ; --i)
-        {
-            int ii = i;
-            <tr>
-                @for (int j = 0; j < 10; ++j)
-                {
-                    int jj = j;
+                        <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(field[i][j])};")></td>
+                    }
+                </tr>
+            }
 
-                    <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(field[i][j])};")></td>
-                }
-            </tr>
-        }
+            @*    <span @onkeypress="@KeyHandlerTb" @onkeydown="@KeyHandlerTb">
+                </span>*@
+            @*    <span @onkeypress="@KeyHandlerNtb" @onkeydown="@KeyHandlerNtb">
+                <InputText @bind-Value="@NtbValue"></InputText>
+                </span>*@
 
-        @*    <span @onkeypress="@KeyHandlerTb" @onkeydown="@KeyHandlerTb">
-            </span>*@
-        @*    <span @onkeypress="@KeyHandlerNtb" @onkeydown="@KeyHandlerNtb">
-            <InputText @bind-Value="@NtbValue"></InputText>
-            </span>*@
+        </table>
 
-    </table>
+        <table>
+            @for (int i = 0; i < 23; ++i)
+            {
+                <tr>
+                    @for (int j = 0; j < 4; ++j)
+                    {
+                        int jj = j;
+
+                        <td class="border border-dark" width="30" height="30" style=@($"background-color:black;")></td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
 </div>
 
 
@@ -32,26 +47,28 @@
     private ElementReference testRef;
     string KeyPressed = "";
     byte[][] field;
-
+    TestControl testControl;
     public string GetColor(byte value)
     {
         return value < _colorTable.Length ? _colorTable[value] : "black";
     }
     protected void KeyDown(KeyboardEventArgs args)
     {
-        switch (args.Key)
+        switch (args.Key.ToLower())
         {
             case "a":
-                _tetrisBoard.MoveLeft();
+                //_tetrisBoard.MoveLeft();
+                testControl.SetKeyStatus(LinliuType.Left, true);
                 break;
             case "d":
-                _tetrisBoard.MoveRight();
+                testControl.SetKeyStatus(LinliuType.Right, true);
                 break;
             case "s":
-                _tetrisBoard.SoftDrop();
+                testControl.SetKeyStatus(LinliuType.SoftDrop, true);
                 break;
             case "l":
                 _tetrisBoard.RightRotation();
+
                 break;
             case "k":
                 _tetrisBoard.LeftRotation();
@@ -66,7 +83,39 @@
                 break;
         }
         KeyPressed = $"Key Pressed: [{args.Key}]";// get key pressed in the arguments
-        field = _tetrisBoard.GetGameField();
+                                                  //field = _tetrisBoard.GetGameField();
+    }
+    protected void Keyup(KeyboardEventArgs args)
+    {
+        switch (args.Key.ToLower())
+        {
+            case "a":
+                //_tetrisBoard.MoveLeft();
+                testControl.SetKeyStatus(LinliuType.Left, false);
+                break;
+            case "d":
+                testControl.SetKeyStatus(LinliuType.Right, false);
+                break;
+            case "s":
+                testControl.SetKeyStatus(LinliuType.SoftDrop, false);
+                break;
+            //case "l":
+            //    testControl.SetKeyStatus(LinliuType.RightR, false);
+            //    break;
+            //case "k":
+            //    testControl.SetKeyStatus(LinliuType.Left, false);
+            //    break;
+            //case "w":
+            //    _tetrisBoard.HardDrop();
+            //    break;
+            //case "j":
+            //    _tetrisBoard.OnHold();
+            //    break;
+            default:
+                break;
+        }
+        KeyPressed = $"Key Pressed: [{args.Key}]";// get key pressed in the arguments
+                                                  //field = _tetrisBoard.GetGameField();
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

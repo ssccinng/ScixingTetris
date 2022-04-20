@@ -10,6 +10,7 @@ namespace ScixingTetrisCore.Tools
     {
         protected Random rnd;
         public IEnumerator<ITetrisMino> NextQueue;
+        private int _seed;
         protected TetrisMinoGenerator(int? seed = null)
         {
             rnd = seed == null ? new Random() : new Random(seed.Value);

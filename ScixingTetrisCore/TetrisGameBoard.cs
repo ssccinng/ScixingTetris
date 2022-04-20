@@ -84,6 +84,7 @@ namespace ScixingTetrisCore
                     if (Field[i][j] == 0)
                     {
                         flag = false;
+                        break;
                     }
                 }
                 if (flag) { cnt++; clearFlag[i] = true; }
@@ -309,6 +310,25 @@ namespace ScixingTetrisCore
             // 针对io 立即下降一格
             SoftDrop();
             return true;
+        }
+
+        public virtual void ResetGame()
+        {
+            Field = new byte[Height][];
+            for (int i = 0; i < Height; ++i)
+            {
+                for (int j = 0; j < Width; j++)
+                {
+                    Field[i][j] = 0;
+                }
+                Field[i] = new byte[Width];
+            }
+            for (int i = 0; i < Width; i++)
+            {
+                ColHeight[i] = 0;
+            }
+            HoldMino = null;
+            //ColHeight = new int[Width];
         }
     }
 }

@@ -25,16 +25,38 @@ namespace KingofSwl.Client
         public int[] KeyRunCnt = new int[10];
         public void SetKeyStatus(LinliuType linliuType, bool value)
         {
-            
+            if (value == VirKey[(int)linliuType]) return;
             if (!value)
             {
-                
+
                 KeyRunCnt[(int)linliuType] = 0;
             }
             else
             {
-                if (!VirKey[(int)linliuType])
-                    KeyPressTime[(int)linliuType] = stopWatch.ElapsedMilliseconds;
+                switch (linliuType)
+                {
+                    case LinliuType.Left:
+                        SetKeyStatus(LinliuType.Right, false);
+                        break;
+                    case LinliuType.Right:
+                        SetKeyStatus(LinliuType.Left, false);
+                        break;
+                    case LinliuType.SoftDrop:
+                        break;
+                    case LinliuType.SonicDrop:
+                        break;
+                    case LinliuType.LeftR:
+                        break;
+                    case LinliuType.RightR:
+                        break;
+                    case LinliuType._180R:
+                        break;
+                    case LinliuType.Hold:
+                        break;
+                    default:
+                        break;
+                }
+                KeyPressTime[(int)linliuType] = stopWatch.ElapsedMilliseconds;
             }
             VirKey[(int)linliuType] = value;
 
@@ -77,10 +99,10 @@ namespace KingofSwl.Client
             //_timer1.Start();
             //_timer1 = Task.Run(() => {while (true) ; });
             _timer = new Timer(new TimerCallback(_ => test()), null, 0, 17);
-            _gtimer = new Timer(new TimerCallback(_ => NextF?.Invoke()), null, 0, 17);
+            _gtimer = new Timer(new TimerCallback(_ => NextF?.Invoke()), null, 0, 5);
         }
-        int das = 100;
-        int arr = 5;
+        int das = 70;
+        int arr = 10;
         int lf = 0;
         int rf = 0;
 

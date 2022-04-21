@@ -12,10 +12,12 @@ namespace KingofSwl.Client
         Right,
         SoftDrop,
         SonicDrop,
+        HardDrop,
         LeftR,
         RightR,
         _180R,
         Hold,
+        Reset,
     }
     public class TestControl
     {
@@ -101,8 +103,9 @@ namespace KingofSwl.Client
             _timer = new Timer(new TimerCallback(_ => test()), null, 0, 17);
             _gtimer = new Timer(new TimerCallback(_ => NextF?.Invoke()), null, 0, 16);
         }
-        int das = 70;
-        int arr = 10;
+        public int das = 70;
+        public int arr = 10;
+        public int ss = 10;
         int lf = 0;
         int rf = 0;
 
@@ -112,11 +115,37 @@ namespace KingofSwl.Client
             var nt = stopWatch.ElapsedMilliseconds;
             for (int i = 0; i < 10; i++)
             {
-                
+                long needCnt = 10;
                 if (VirKey[i])
                 {
-                    var needCnt = Math.Max(0, (nt - KeyPressTime[i] - das)) / arr + 1;
-                    
+                    //var needCnt = Math.Max(0, (nt - KeyPressTime[i] - das)) / arr + 1;
+                    if (i == (int)LinliuType.SoftDrop)
+                    {
+                        if (ss != 0)
+                        {
+                            needCnt = Math.Max(0, (nt - KeyPressTime[i] - das)) / ss + 1;
+                        }
+                    }
+                    else
+                    {
+                        if (arr != 0)
+                        {
+                            needCnt = Math.Max(0, (nt - KeyPressTime[i] - das)) / arr + 1;
+                        }
+                        else
+                        {
+                            
+                            if (KeyRunCnt[i] > 0)
+                            {
+                                
+                                KeyRunCnt[i] = 0;
+                            }
+                            else
+                            {
+                                needCnt = 1;
+                            }
+                        }
+                    }
                     while (KeyRunCnt[i] < needCnt)
                     {
                         switch ((LinliuType)i)
@@ -128,7 +157,16 @@ namespace KingofSwl.Client
                                 _tetrisGameBoard.MoveRight();
                                 break;
                             case LinliuType.SoftDrop:
-                                _tetrisGameBoard.SoftDrop();
+                                if (ss == 0)
+                                {
+                                    _tetrisGameBoard.SonicDrop();
+
+                                }
+                                else
+                                {
+                                    _tetrisGameBoard.SoftDrop();
+
+                                }
                                 break;
                             case LinliuType.SonicDrop:
                                 _tetrisGameBoard.SonicDrop();

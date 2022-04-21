@@ -1,9 +1,35 @@
 ﻿@page "/"
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+
+    
 
 <div class="jumbotron" @onkeypress="@KeyDown" @onkeyup="@Keyup" tabindex="0" @ref="testRef">
-    @*<h4 style="background-color:aqua">@KeyPressed</h4>*@
+ @if (!_isLoading)
+{  @*<h4 style="background-color:aqua">@KeyPressed</h4>*@
     <div class="row">
         <table>
+
+            @for (int i = 3; i >= 0; --i)
+            {
+                <tr>
+                    <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
+
+                    @for (int j = 0; j < 4; ++j)
+                    {
+                        int jj = j;
+
+                        <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(holdField[i][j])};")></td>
+                    }
+                </tr>
+            }
+             <tr>
+                <td height=600></td>
+            </tr>
+            </table>
+           <div style="width:30px"></div>
+        <table>
+
             @for (int i = 23; i >= 0; --i)
             {
                 int ii = i;
@@ -27,7 +53,7 @@
         <div style="width:30px"></div>
         <table>
 
-            @for (int i = 3; i >= 0; --i)
+            @*@for (int i = 3; i >= 0; --i)
             {
                 <tr>
                     <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
@@ -42,7 +68,7 @@
             }
             <tr>
                 <td height=30></td>
-            </tr>
+            </tr>*@
             @foreach (var m in nextFields)
             {
                 @for (int i = 3; i >= 1; --i)
@@ -69,12 +95,25 @@
                         <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
                     }
                 </tr>
-
-
+                 <tr>
+                <td height=30></td>
+            </tr> <tr>
+                <td height=30></td>
+            </tr>
+             <tr>
+                <td height=30></td>
+            </tr>
+             <tr>
+                <td height=30></td>
+            </tr>
+             <tr>
+                <td height=30></td>
+            </tr>
         </table>
     </div>
-</div>
+    }
 
+</div>
 
 @code {
     int x = 5, y = 5;
@@ -90,72 +129,127 @@
     }
     protected void KeyDown(KeyboardEventArgs args)
     {
-        switch (args.Key.ToLower())
+        var keycode = args.Code;
+        if (keycode == KosSetting.Left)
         {
-            case "a":
-                //_tetrisBoard.MoveLeft();
-                testControl.SetKeyStatus(LinliuType.Left, true);
-                break;
-            case "d":
-                testControl.SetKeyStatus(LinliuType.Right, true);
-                break;
-            case "s":
-                testControl.SetKeyStatus(LinliuType.SoftDrop, true);
-                break;
-            case "l":
-                _tetrisBoard.RightRotation();
-
-                break;
-            case "k":
-                _tetrisBoard.LeftRotation();
-                break;
-            case "z":
-                _tetrisBoard._180Rotation();
-                break;
-            case "w":
-                _tetrisBoard.HardDrop();
-                break;
-            case "j":
-                _tetrisBoard.OnHold();
-                break;
-            case "r":
-                _tetrisBoard.ResetGame();
-                break;
-            default:
-                break;
+            testControl.SetKeyStatus(LinliuType.Left, true);
         }
+        else if (keycode == KosSetting.Right)
+        {
+            testControl.SetKeyStatus(LinliuType.Right, true);
+        }
+        else if (keycode == KosSetting.SoftDrop)
+        {
+            testControl.SetKeyStatus(LinliuType.SoftDrop, true);
+        }
+        else if (keycode == KosSetting.LeftR)
+        {
+            _tetrisBoard.LeftRotation();
+        }
+        else if (keycode == KosSetting.RightR)
+        {
+            _tetrisBoard.RightRotation();
+        }
+        else if (keycode == KosSetting._180R)
+        {
+            _tetrisBoard.RightRotation();
+        }
+        else if (keycode == KosSetting.HardDrop)
+        {
+            _tetrisBoard.HardDrop();
+        }
+        else if (keycode == KosSetting.SonicDrop)
+        {
+            _tetrisBoard.SonicDrop();
+        }
+        else if (keycode == KosSetting.Hold)
+        {
+            _tetrisBoard.OnHold();
+        }
+        else if (keycode == KosSetting.Reset)
+        {
+            _tetrisBoard.ResetGame();
+            
+        }
+        //switch (args.Key.ToLower())
+        //{
+        //    case "a"
+        //        //_tetrisBoard.MoveLeft();
+        //        testControl.SetKeyStatus(LinliuType.Left, true);
+        //        break;
+        //    case "d":
+        //        testControl.SetKeyStatus(LinliuType.Right, true);
+        //        break;
+        //    case "s":
+        //        testControl.SetKeyStatus(LinliuType.SoftDrop, true);
+        //        break;
+        //    case "l":
+        //        _tetrisBoard.RightRotation();
+
+        //        break;
+        //    case "k":
+        //        _tetrisBoard.LeftRotation();
+        //        break;
+        //    case "z":
+        //        _tetrisBoard._180Rotation();
+        //        break;
+        //    case "w":
+        //        _tetrisBoard.HardDrop();
+        //        break;
+        //    case "j":
+        //        _tetrisBoard.OnHold();
+        //        break;
+        //    case "r":
+        //        _tetrisBoard.ResetGame();
+        //        break;
+        //    default:
+        //        break;
+        //}
         KeyPressed = $"Key Pressed: [{args.Key}]";// get key pressed in the arguments
                                                   //field = _tetrisBoard.GetGameField();
     }
     protected void Keyup(KeyboardEventArgs args)
     {
-        switch (args.Key.ToLower())
+         var keycode = args.Code;
+        if (keycode == KosSetting.Left)
         {
-            case "a":
-                //_tetrisBoard.MoveLeft();
-                testControl.SetKeyStatus(LinliuType.Left, false);
-                break;
-            case "d":
-                testControl.SetKeyStatus(LinliuType.Right, false);
-                break;
-            case "s":
-                testControl.SetKeyStatus(LinliuType.SoftDrop, false);
-                break;
-            //case "l":
-            //    testControl.SetKeyStatus(LinliuType.RightR, false);
-            //    break;
-            //case "k":
-            //    testControl.SetKeyStatus(LinliuType.Left, false);
-            //    break;
-            //case "w":
-            //    _tetrisBoard.HardDrop();
-            //    break;
-            //case "j":
-            //    _tetrisBoard.OnHold();
-            //    break;
-            default:
-                break;
+            testControl.SetKeyStatus(LinliuType.Left, false);
         }
+        else if (keycode == KosSetting.Right)
+        {
+            testControl.SetKeyStatus(LinliuType.Right, false);
+        }
+        else if (keycode == KosSetting.SoftDrop)
+        {
+            testControl.SetKeyStatus(LinliuType.SoftDrop, false);
+        }
+        //switch (args.Key.ToLower())
+        //{
+        //    case "a":
+        //        //_tetrisBoard.MoveLeft();
+        //        testControl.SetKeyStatus(LinliuType.Left, false);
+        //        break;
+        //    case "d":
+        //        testControl.SetKeyStatus(LinliuType.Right, false);
+        //        break;
+        //    case "s":
+        //        testControl.SetKeyStatus(LinliuType.SoftDrop, false);
+        //        break;
+        //    //case "l":
+        //    //    testControl.SetKeyStatus(LinliuType.RightR, false);
+        //    //    break;
+        //    //case "k":
+        //    //    testControl.SetKeyStatus(LinliuType.Left, false);
+        //    //    break;
+        //    //case "w":
+        //    //    _tetrisBoard.HardDrop();
+        //    //    break;
+        //    //case "j":
+        //    //    _tetrisBoard.OnHold();
+        //    //    break;
+        //    default:
+        //        break;
+        //}
         KeyPressed = $"Key Pressed: [{args.Key}]";// get key pressed in the arguments
                                                   //field = _tetrisBoard.GetGameField();
     }

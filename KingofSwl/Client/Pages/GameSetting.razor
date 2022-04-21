@@ -1,0 +1,104 @@
+﻿@page "/GameSetting"
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@if (!_isLoading)
+{
+    <div class="col">
+        <div style="width:120px">
+            <div>左移</div>
+            <input width=80 @bind-value=KosSetting.Left readonly @onkeydown=@((args) => KeyDown(args, LinliuType.Left))/>
+        </div>
+         <div style="width:120px">
+            <div>右移</div>
+            <input width=80 @bind-value=KosSetting.Right readonly @onkeydown=@((args) => KeyDown(args, LinliuType.Right))/>
+        </div>
+        <div style="width:120px">
+            <div>Hold</div>
+            <input width=80 @bind-value=KosSetting.Hold readonly @onkeydown=@((args) => KeyDown(args, LinliuType.Hold))/>
+        </div>
+        <div style="width:120px">
+            <div>左旋</div>
+            <input width=80 @bind-value=KosSetting.LeftR readonly @onkeydown=@((args) => KeyDown(args, LinliuType.LeftR))/>
+        </div>
+        <div style="width:120px">
+            <div>右旋</div>
+            <input width=80 @bind-value=KosSetting.RightR readonly @onkeydown=@((args) => KeyDown(args, LinliuType.RightR))/>
+        </div>
+        <div style="width:120px">
+            <div>180旋</div>
+            <input width=80 @bind-value=KosSetting._180R readonly @onkeydown=@((args) => KeyDown(args, LinliuType._180R))/>
+        </div>
+
+        <div style="width:120px">
+            <div>软降</div>
+            <input width=80 @bind-value=KosSetting.SoftDrop readonly @onkeydown=@((args) => KeyDown(args, LinliuType.SoftDrop))/>
+        </div>
+        <div style="width:120px">
+            <div>瞬降</div>
+            <input width=80 @bind-value=KosSetting.SonicDrop readonly @onkeydown=@((args) => KeyDown(args, LinliuType.SonicDrop))/>
+        </div>
+        <div style="width:120px">
+            <div>硬降</div>
+            <input width=80 @bind-value=KosSetting.HardDrop readonly @onkeydown=@((args) => KeyDown(args, LinliuType.HardDrop))/>
+        </div>
+        <div style="width:120px">
+            <div>重置场地</div>
+            <input width=80 @bind-value=KosSetting.Reset readonly @onkeydown=@((args) => KeyDown(args, LinliuType.Reset))/>
+        </div>
+        <div style="width:120px">
+            <div>Das</div>
+            <input width=80 @bind-value=KosSetting.Das/>
+        </div>
+        <div style="width:120px">
+            <div>Arr</div>
+            <input width=80 @bind-value=KosSetting.Arr/>
+        </div>
+        <div style="width:120px">
+            <div>软降速度</div>
+            <input width=80 @bind-value=KosSetting.SoftDropSpeed/>
+        </div>
+
+<button @onclick="HandleSubmit">保存设置</button>  @* Create your cookie *@
+
+    </div>
+
+}
+
+
+@code{
+    bool _isLoading = true;
+    string aa;
+    public async Task HandleSubmit()
+    {
+        if (KosSetting.Arr > 100) KosSetting.Arr = 100;
+        if (KosSetting.Arr < 0) KosSetting.Arr = 0;
+        if (KosSetting.Das > 1000) KosSetting.Das = 1000;
+        if (KosSetting.Das < 1) KosSetting.Das = 1;
+        if (KosSetting.SoftDropSpeed > 100) KosSetting.SoftDropSpeed = 100;
+        if (KosSetting.SoftDropSpeed < 0) KosSetting.SoftDropSpeed = 0;
+
+        await localStorage.SetItemAsync("KSetting", KosSetting);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        var cookieContent = await localStorage.GetItemAsync<KosSetting>("KSetting");
+
+        if (cookieContent == null)
+        {
+            KosSetting = new KosSetting();
+            aa = "dani";
+            Console.WriteLine("Cookie is blank");
+        }
+        else
+        {
+            KosSetting = cookieContent;
+            Console.WriteLine("We have a cookie with contents: " + cookieContent);
+        }
+        _isLoading = false;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        
+    }
+}

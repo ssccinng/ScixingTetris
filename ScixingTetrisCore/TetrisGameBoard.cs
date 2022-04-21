@@ -291,7 +291,7 @@ namespace ScixingTetrisCore
             {
                 HoldMino = TetrisMinoStatus.TetrisMino;
                 SpawnNewPiece();
-                SoftDrop();
+                
             }
             else
             {
@@ -299,6 +299,7 @@ namespace ScixingTetrisCore
                 //TetrisMinoStatus.Position = (19, 3);
                 TetrisMinoStatus.Position = DefaultPos;
                 TetrisMinoStatus.Stage = 0;
+                SoftDrop();
             }
             return true;
         }

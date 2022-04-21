@@ -6,6 +6,7 @@ namespace KingofSwl.Client.Pages
 {
     public partial class TetrisTest
     {
+        public KosSetting KosSetting { get; set; }
         
         KosTetrisGameBoard _tetrisBoard = new(ShowHeight: 25, tetrisMinoGenerator: new Bag7Generator<TetrisMino>());
         string[] _colorTable = new[]
@@ -30,19 +31,34 @@ namespace KingofSwl.Client.Pages
             "#d713453f",
 
         };
-        protected override Task OnInitializedAsync()
+        bool _isLoading = true;
+        protected override async Task OnInitializedAsync()
         {
+            var cookieContent = await localStorage.GetItemAsync<KosSetting>("KSetting");
+
+            if (cookieContent == null)
+            {
+                KosSetting = new KosSetting();
+            }
+            else
+            {
+                KosSetting = cookieContent;
+            }
+            
             _tetrisBoard.GameStart();
             field = _tetrisBoard.GetGameField();
             holdField = _tetrisBoard.GetHoldField();
             nextFields = _tetrisBoard.GetNextQueueField();
             testControl = new TestControl(_tetrisBoard);
-            
+            testControl.das = KosSetting.Das;
+            testControl.arr = KosSetting.Arr;
+            testControl.ss = KosSetting.SoftDropSpeed;
             testControl.NextF += () => this.InvokeAsync(() => { field = _tetrisBoard.GetGameField(); 
                 holdField = _tetrisBoard.GetHoldField();
                 nextFields = _tetrisBoard.GetNextQueueField();
                 this.StateHasChanged(); });
-            return base.OnInitializedAsync();
+            _isLoading = false;
+            return;
         }
     }
 }

@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using KingofSwl.Server.Data;
 using KingofSwl.Server.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -40,7 +41,9 @@ namespace KingofSwl.Server
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
-
+            services.AddBlazoredLocalStorage();   // local storage
+            services.AddBlazoredLocalStorage(config =>
+                config.JsonSerializerOptions.WriteIndented = true);  // local storage
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

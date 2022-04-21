@@ -54,5 +54,27 @@ namespace ScixingTetrisCore
             return list;
             //throw new NotImplementedException();
         }
+        public int ClearLineCnt { get; private set; } = 0;
+        public override bool LockMino()
+        {
+            //if(TetrisRule)
+            var minoList = TetrisMinoStatus.GetMinoFieldListInBoard();
+            // 要不不检查了（？
+            // 断言此时的场地和方块是ok的
+            foreach (var pos in minoList)
+            {
+                //Field[pos.X][pos.Y] = 1;
+                Field[pos.X][pos.Y] = (byte)(TetrisMinoStatus.TetrisMino.MinoType + 1);
+            }
+            ClearLineCnt += TryClearLines();
+            SpawnNewPiece();
+            return true;
+        }
+        public override void ResetGame()
+        {
+
+            ClearLineCnt = 0;
+            base.ResetGame();
+        }
     }
 }

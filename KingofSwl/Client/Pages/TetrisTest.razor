@@ -110,6 +110,10 @@
                 <td height=30></td>
             </tr>
         </table>
+        <div class="col  ml-5">
+        <div class="font-weight-bold mt-5" style="font-size:xx-large">@(_tetrisBoard.ClearLineCnt)</div>
+        <div class="font-weight-bold mt-5">@(stopWatch.ElapsedMilliseconds / 1000.0)</div>
+        </div>
     </div>
     }
 
@@ -123,6 +127,7 @@
     byte[][] holdField;
     List<byte[][]> nextFields;
     TestControl testControl;
+
     public string GetColor(byte value)
     {
         return value < _colorTable.Length ? _colorTable[value] : "black";
@@ -130,6 +135,10 @@
     protected void KeyDown(KeyboardEventArgs args)
     {
         if (args.Repeat) return;
+        if (!stopWatch.IsRunning && args.Code != KosSetting.Reset && _tetrisBoard.ClearLineCnt == 0)
+        {
+            stopWatch.Restart();
+        }
         var keycode = args.Code;
         if (keycode == KosSetting.Left)
         {
@@ -157,7 +166,12 @@
         }
         else if (keycode == KosSetting.HardDrop && !args.Repeat)
         {
+
             _tetrisBoard.HardDrop();
+            if (_tetrisBoard.ClearLineCnt >= 40)
+            {
+                stopWatch.Stop();
+            }
         }
         else if (keycode == KosSetting.SonicDrop)
         {
@@ -169,6 +183,7 @@
         }
         else if (keycode == KosSetting.Reset)
         {
+            stopWatch.Stop();
             _tetrisBoard.ResetGame();
             
         }

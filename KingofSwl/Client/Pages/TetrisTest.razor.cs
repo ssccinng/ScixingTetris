@@ -1,5 +1,6 @@
 ﻿using ScixingTetrisCore;
 using ScixingTetrisCore.Tools;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace KingofSwl.Client.Pages
@@ -7,11 +8,12 @@ namespace KingofSwl.Client.Pages
     public partial class TetrisTest
     {
         public KosSetting KosSetting { get; set; }
-        
+        Stopwatch stopWatch =  new Stopwatch();
         KosTetrisGameBoard _tetrisBoard = new(ShowHeight: 25, tetrisMinoGenerator: new Bag7Generator<TetrisMino>());
         string[] _colorTable = new[]
         {
             "white",
+            //"Translate",
             "#33a3dc",
             "#ffe600",
             "#7d5886",

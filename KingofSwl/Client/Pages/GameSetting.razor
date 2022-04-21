@@ -54,7 +54,7 @@
             <input width=80 @bind-value=KosSetting.Arr/>
         </div>
         <div style="width:120px">
-            <div>软降速度</div>
+            <div>软降arr</div>
             <input width=80 @bind-value=KosSetting.SoftDropSpeed/>
         </div>
 
@@ -74,7 +74,7 @@
         if (KosSetting.Arr < 0) KosSetting.Arr = 0;
         if (KosSetting.Das > 1000) KosSetting.Das = 1000;
         if (KosSetting.Das < 1) KosSetting.Das = 1;
-        if (KosSetting.SoftDropSpeed > 100) KosSetting.SoftDropSpeed = 100;
+        if (KosSetting.SoftDropSpeed > 1000) KosSetting.SoftDropSpeed = 1000;
         if (KosSetting.SoftDropSpeed < 0) KosSetting.SoftDropSpeed = 0;
 
         await localStorage.SetItemAsync("KSetting", KosSetting);

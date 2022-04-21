@@ -4,7 +4,7 @@
 
     
 
-<div class="jumbotron" @onkeypress="@KeyDown" @onkeyup="@Keyup" tabindex="0" @ref="testRef">
+<div class="jumbotron"  @onkeydown="@KeyDown" @onkeyup="@Keyup" tabindex="0" @ref="testRef">
  @if (!_isLoading)
 {  @*<h4 style="background-color:aqua">@KeyPressed</h4>*@
     <div class="row">
@@ -129,6 +129,7 @@
     }
     protected void KeyDown(KeyboardEventArgs args)
     {
+        if (args.Repeat) return;
         var keycode = args.Code;
         if (keycode == KosSetting.Left)
         {
@@ -138,7 +139,7 @@
         {
             testControl.SetKeyStatus(LinliuType.Right, true);
         }
-        else if (keycode == KosSetting.SoftDrop)
+        else if (keycode == KosSetting.SoftDrop && !args.Repeat)
         {
             testControl.SetKeyStatus(LinliuType.SoftDrop, true);
         }
@@ -152,9 +153,9 @@
         }
         else if (keycode == KosSetting._180R)
         {
-            _tetrisBoard.RightRotation();
+            _tetrisBoard._180Rotation();
         }
-        else if (keycode == KosSetting.HardDrop)
+        else if (keycode == KosSetting.HardDrop && !args.Repeat)
         {
             _tetrisBoard.HardDrop();
         }

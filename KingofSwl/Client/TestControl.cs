@@ -123,8 +123,18 @@ namespace KingofSwl.Client
                     {
                         if (ss != 0)
                         {
-                            needCnt = Math.Max(0, (nt - KeyPressTime[i] - das)) / ss + 1;
+                            needCnt = Math.Max(0, (nt - KeyPressTime[i] )) / ss + 1;
                         }
+                        else
+                        {
+                            if (KeyRunCnt[i] > 1)
+                            {
+
+                                KeyRunCnt[i] = 0;
+                            }
+                            
+                        }
+                        
                     }
                     else
                     {
@@ -135,7 +145,7 @@ namespace KingofSwl.Client
                         else
                         {
                             
-                            if (KeyRunCnt[i] > 0)
+                            if (KeyRunCnt[i] > 1)
                             {
                                 
                                 KeyRunCnt[i] = 0;
@@ -143,6 +153,7 @@ namespace KingofSwl.Client
                             else
                             {
                                 needCnt = 1;
+                                if (nt - KeyPressTime[i] - das > 0) needCnt = 10;
                             }
                         }
                     }

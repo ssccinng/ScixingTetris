@@ -13,21 +13,21 @@
             @for (int i = 3; i >= 0; --i)
             {
                 <tr>
-                    <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
+                    <td class="border border-dark" width="25" height="25" style=@($"background-color:white;")></td>
 
                     @for (int j = 0; j < 4; ++j)
                     {
                         int jj = j;
 
-                        <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(holdField[i][j])};")></td>
+                        <td class="border border-dark" width="25" height="25" style=@($"background-color:{GetColor(holdField[i][j])};")></td>
                     }
                 </tr>
             }
              <tr>
-                <td height=600></td>
+                <td height=500></td>
             </tr>
             </table>
-           <div style="width:30px"></div>
+           <div style="width:25px"></div>
         <table>
 
             @for (int i = 23; i >= 0; --i)
@@ -38,7 +38,7 @@
                     {
                         int jj = j;
 
-                        <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(field[i][j])};")></td>
+                        <td class="border border-dark" width="25" height="25" style=@($"background-color:{GetColor(field[i][j])};")></td>
                     }
                 </tr>
             }
@@ -50,7 +50,7 @@
                 </span>*@
 
         </table>
-        <div style="width:30px"></div>
+        <div style="width:25px"></div>
         <table>
 
             @*@for (int i = 3; i >= 0; --i)
@@ -74,13 +74,13 @@
                 @for (int i = 3; i >= 1; --i)
                 {
                     <tr>
-                        <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
+                        <td class="border border-dark" width="25" height="25" style=@($"background-color:white;")></td>
 
                         @for (int j = 0; j < 4; ++j)
                         {
                             int jj = j;
 
-                            <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(m[i][j])};")></td>
+                            <td class="border border-dark" width="25" height="25" style=@($"background-color:{GetColor(m[i][j])};")></td>
                         }
                     </tr>
                 }
@@ -92,22 +92,22 @@
                     @for (int j = 0; j < 5; ++j)
                     {
 
-                        <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
+                        <td class="border border-dark" width="25" height="25" style=@($"background-color:white;")></td>
                     }
                 </tr>
                  <tr>
-                <td height=30></td>
+                <td height=25></td>
             </tr> <tr>
-                <td height=30></td>
+                <td height=25></td>
             </tr>
              <tr>
-                <td height=30></td>
+                <td height=25></td>
             </tr>
              <tr>
-                <td height=30></td>
+                <td height=25></td>
             </tr>
              <tr>
-                <td height=30></td>
+                <td height=25></td>
             </tr>
         </table>
         <div class="col  ml-5">
@@ -123,9 +123,10 @@
     int x = 5, y = 5;
     private ElementReference testRef;
     string KeyPressed = "";
-    byte[][] field;
-    byte[][] holdField;
-    List<byte[][]> nextFields;
+    public byte[][] field;
+    public byte[][] holdField;
+    public bool Canuse = true;
+    public List<byte[][]> nextFields;
     TestControl testControl;
 
     public string GetColor(byte value)
@@ -134,7 +135,7 @@
     }
     protected void KeyDown(KeyboardEventArgs args)
     {
-        if (args.Repeat) return;
+        if (args.Repeat || !Canuse) return;
         if (!stopWatch.IsRunning && args.Code != KosSetting.Reset && _tetrisBoard.ClearLineCnt == 0)
         {
             stopWatch.Restart();
@@ -226,6 +227,7 @@
     }
     protected void Keyup(KeyboardEventArgs args)
     {
+        if (!Canuse) return;
          var keycode = args.Code;
         if (keycode == KosSetting.Left)
         {

@@ -1,0 +1,76 @@
+﻿@page "/Battle"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+
+<TetrisTest @ref=rr></TetrisTest>
+<div>@aa</div>
+@code {
+    TetrisTest rr;
+    string aa = "临流";
+    private HubConnection hubConnection;
+    private List<string> messages = new List<string>();
+    private string userInput;
+    private string messageInput;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/koshub"))
+            .Build();
+
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            var encodedMsg = $"{user}: {message}";
+            messages.Add(encodedMsg);
+            StateHasChanged();
+        });
+        hubConnection.On<bool>("Initstring", (user) =>
+        {
+        //var encodedMsg = $"1";
+        //messages.Add("0");
+        //messages.Add(user.Count.ToString());
+        rr.Canuse = user;
+        });
+        hubConnection.On<byte[][], byte[][], List<byte[][]>>("updateField", (a, b, c) =>
+        {
+        //var encodedMsg = $"1";
+        //messages.Add("0");
+        //messages.Add(user.Count.ToString());
+        aa = "揽镜";
+            rr.field = a as byte[][];
+            rr.holdField = b as byte[][];
+            rr.nextFields = c as List<byte[][]>;
+           this.InvokeAsync( () => StateHasChanged());
+        });
+        await hubConnection.StartAsync();
+        await Init();
+        timer = new System.Threading.Timer(new System.Threading.TimerCallback(async _ =>
+           {
+               if (!rr.Canuse) return;
+                aa = "曳双魂";
+               //StateHasChanged();
+               await Update();
+
+           }), null, 100, 17);
+       
+    }
+
+    async Task Send() =>
+        await hubConnection.SendAsync("SendMessage1", userInput, messageInput);
+    async Task Update() =>
+        await hubConnection.SendAsync("UpdateField", rr.field, rr.holdField, rr.nextFields);
+    async Task Init() =>
+        await hubConnection.SendAsync("SendInit");
+    public bool IsConnected =>
+        hubConnection.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

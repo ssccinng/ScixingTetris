@@ -9,7 +9,7 @@ namespace KingofSwl.Client.Pages
     {
         public KosSetting KosSetting { get; set; }
         Stopwatch stopWatch =  new Stopwatch();
-        KosTetrisGameBoard _tetrisBoard = new(ShowHeight: 25, tetrisMinoGenerator: new Bag7Generator<TetrisMino>());
+        public KosTetrisGameBoard _tetrisBoard = new(ShowHeight: 25, tetrisMinoGenerator: new Bag7Generator<TetrisMino>());
         string[] _colorTable = new[]
         {
             "white",
@@ -55,9 +55,14 @@ namespace KingofSwl.Client.Pages
             testControl.das = KosSetting.Das;
             testControl.arr = KosSetting.Arr;
             testControl.ss = KosSetting.SoftDropSpeed;
-            testControl.NextF += () => this.InvokeAsync(() => { field = _tetrisBoard.GetGameField(); 
-                holdField = _tetrisBoard.GetHoldField();
-                nextFields = _tetrisBoard.GetNextQueueField();
+            
+            testControl.NextF += () => this.InvokeAsync(() => {
+                if (Canuse) {
+                    field = _tetrisBoard.GetGameField();
+                    holdField = _tetrisBoard.GetHoldField();
+                    nextFields = _tetrisBoard.GetNextQueueField();
+                }
+               
                 this.StateHasChanged(); });
             _isLoading = false;
             return;

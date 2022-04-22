@@ -70,6 +70,8 @@ namespace ScixingTetrisCore.Interface
         bool IsCellFreeWithMino(int x, int y);
 
         void ResetGame();
+
+        void ReceiveGarbage(List<int> garbages);
         
     }
 }

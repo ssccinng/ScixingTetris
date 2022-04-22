@@ -9,7 +9,11 @@ namespace ScixingTetrisCore.Tools
 {
     public abstract class GarbageGenerator : IGarbageGenerator
     {
-        readonly Random rnd;
+        protected readonly Random _rnd;
+        public GarbageGenerator(int? seed = null)
+        {
+            _rnd = seed == null ? new Random() : new Random(seed.Value);
+        }
         public abstract List<int> GetBitGarbage(List<int> GarbageList);
         public abstract List<byte[]> GetGarbage(List<int> GarbageList);
     }
@@ -18,7 +22,13 @@ namespace ScixingTetrisCore.Tools
     {
         public override List<int> GetBitGarbage(List<int> GarbageList)
         {
-            throw new NotImplementedException();
+            List<int> list = new List<int>();
+            foreach (var garbage in GarbageList)
+            {
+                list.Add(~(1 << _rnd.Next(10)));
+            }
+            return list;
+            //throw new NotImplementedException();
         }
 
         public override List<byte[]> GetGarbage(List<int> GarbageList)

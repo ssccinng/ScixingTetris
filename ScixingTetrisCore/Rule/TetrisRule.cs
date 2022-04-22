@@ -17,10 +17,17 @@ namespace ScixingTetrisCore.Rule
         //    FieldCheck = Rule.FieldCheck.GuildLine,
         //    CheckMinoOk = (tetrisBoard, tetrisMinoStatus) => FieldCheck.IsMinoOk(tetrisBoard, tetrisMinoStatus),
         //};
+        
+        public static readonly GuildLineRule GuildLine = new();
+        /// <summary>
+        /// KingOfStacker
+        /// </summary>
+        public static readonly KOSRule KOS = new();
         /// <summary>
         /// Puyo Puyo Tetris
         /// </summary>
         public static readonly TetrisRule PPT;
+
         /// <summary>
         /// Tetris Online Poland
         /// </summary>
@@ -33,10 +40,8 @@ namespace ScixingTetrisCore.Rule
         /// C2(忘了怎么拼)
         /// </summary>
         public static readonly TetrisRule C2;
-        /// <summary>
-        /// KingOfStacker
-        /// </summary>
-        public static readonly TetrisRule KOS;
+        
+        //public static readonly TetrisRule KOS;
         /// <summary>
         /// Jstris
         /// </summary>
@@ -71,6 +76,14 @@ namespace ScixingTetrisCore.Rule
             _fieldCheck = FCGuildLine.FieldCheck,
             _attackRule = ARGuildLine.Guideline,
         };
+
+        public GuildLineRule()
+        {
+            RotationSystem = ScixingTetrisCore.Rule.RotationSystem.SRS;
+            //RotationSystem = ScixingTetrisCore.Rule.RotationSystem.Geek,
+            _fieldCheck = FCGuildLine.FieldCheck;
+            _attackRule = ARGuildLine.Guideline;
+        }
         public override bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
             return _fieldCheck.IsMinoOk(tetrisBoard, tetrisMinoStatus);
@@ -84,6 +97,14 @@ namespace ScixingTetrisCore.Rule
         public override List<int> GetAttack(AttackMessage attackMessage)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    public class KOSRule: GuildLineRule
+    {
+        public KOSRule():base()
+        {
+            RotationSystem = ScixingTetrisCore.Rule.RotationSystem.KOSSRS;
         }
     }
 

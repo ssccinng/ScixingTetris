@@ -11,6 +11,7 @@ namespace ScixingTetrisCore
         None,
         Tspin,
         MiniTspin,
+        Spin,
     }
     /// <summary>
     /// 攻击信息

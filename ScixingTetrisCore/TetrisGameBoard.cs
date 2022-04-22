@@ -18,7 +18,7 @@ namespace ScixingTetrisCore
         public int Width { get => Field[0].Length; }
         public int ShowHeight { get; set; }
         public int[] ColHeight { get; set; }
-        public ITetrisRule TetrisRule { get; private set; }
+        public ITetrisRule TetrisRule { get; protected set; }
 
         //public Queue<ITetrisMino> NextQueue => throw new NotImplementedException();
         public Queue<ITetrisMino> NextQueue { get; } = new();
@@ -47,7 +47,7 @@ namespace ScixingTetrisCore
         public TetrisGameBoard(int Width = 10, int Height = 40, int ShowHeight = 20, ITetrisRule tetrisRule = null, ITetrisMinoGenerator tetrisMinoGenerator = null)
         {
             // 赋予规则
-            TetrisRule = tetrisRule ?? GuildLineRule.Rule;
+            TetrisRule = tetrisRule ?? Rule.TetrisRule.GuildLine;
             TetrisMinoGenerator = tetrisMinoGenerator ?? new Bag7Generator<TetrisMino>();
             Field = new byte[Height][];
             for (int i = 0; i < Height; ++i)
@@ -334,6 +334,11 @@ namespace ScixingTetrisCore
             TetrisMinoGenerator.Reset();
             GameStart();
             //ColHeight = new int[Width];
+        }
+
+        public void ReceiveGarbage(List<int> garbages)
+        {
+            
         }
     }
 }

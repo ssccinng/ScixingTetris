@@ -8,6 +8,7 @@ namespace ScixingTetrisCore.Rule
 {
     public class RotationSystem : IRotationSystem
     {
+        public static readonly KOSRotationSystem KOSSRS = new();
         public static readonly RotationSystem SRS = new()
         {
             KickTable = new Dictionary<MinoType, (int y, int x)[][]>
@@ -137,6 +138,8 @@ namespace ScixingTetrisCore.Rule
                 }
             }
         };
+
+
         public static readonly RotationSystem Geek = new()
         {
             //KickTable = (minoType) => minoType switch
@@ -276,6 +279,211 @@ namespace ScixingTetrisCore.Rule
             tetrisMinoStatus._180Roll();
             tetrisMinoStatus.Position = temp;
             return (false, -1);
+        }
+    }
+
+    public class SRSRotationSystem: RotationSystem
+    {
+        public SRSRotationSystem()
+        {
+            KickTable = new Dictionary<MinoType, (int y, int x)[][]>
+            {
+                [MinoType.SC_I] = new[]
+             {
+                    new [] { (0, 0), (-2, 0), (+1, 0), (-2, -1), (+1, +2) },
+                    new [] { (0, 0), (-1, 0), (+2, 0), (-1, +2), (+2, -1) },
+                    new [] { (0, 0), (+2, 0), (-1, 0), (+2, +1), (-1, -2) },
+                    new [] { (0, 0), (+1, 0), (-2, 0), (+1, -2), (-2, +1) },
+                },
+                [MinoType.SC_O] = new[]
+             {
+                    new []{ (0, 0) },
+                    new []{ (0, 0) },
+                    new []{ (0, 0) },
+                    new []{ (0, 0) },
+                },
+                [MinoType.SC_T] = new[]
+             {
+                    new []{ (0, 0), (-1, 0), (-1, +1), (0, -2), (-1, -2) },
+                    new []{ (0, 0), (+1, 0), (+1, -1), (0, +2), (+1, +2) },
+                    new []{ (0, 0), (+1, 0), (+1, +1), (0, -2), (+1, -2) },
+                    new []{ (0, 0), (-1, 0), (-1, -1), (0, +2), (-1, +2) },
+                },
+                [MinoType.SC_Z] = new[]
+             {
+                    new []{ (0, 0), (-1, 0), (-1, +1), (0, -2), (-1, -2) },
+                    new []{ (0, 0), (+1, 0), (+1, -1), (0, +2), (+1, +2) },
+                    new []{ (0, 0), (+1, 0), (+1, +1), (0, -2), (+1, -2) },
+                    new []{ (0, 0), (-1, 0), (-1, -1), (0, +2), (-1, +2) },
+                },
+                [MinoType.SC_J] = new[]
+             {
+                    new []{ (0, 0), (-1, 0), (-1, +1), (0, -2), (-1, -2) },
+                    new []{ (0, 0), (+1, 0), (+1, -1), (0, +2), (+1, +2) },
+                    new []{ (0, 0), (+1, 0), (+1, +1), (0, -2), (+1, -2) },
+                    new []{ (0, 0), (-1, 0), (-1, -1), (0, +2), (-1, +2) },
+                },
+                [MinoType.SC_L] = new[]
+             {
+                    new []{ (0, 0), (-1, 0), (-1, +1), (0, -2), (-1, -2) },
+                    new []{ (0, 0), (+1, 0), (+1, -1), (0, +2), (+1, +2) },
+                    new []{ (0, 0), (+1, 0), (+1, +1), (0, -2), (+1, -2) },
+                    new []{ (0, 0), (-1, 0), (-1, -1), (0, +2), (-1, +2) },
+                },
+                [MinoType.SC_S] = new[]
+             {
+                    new []{ (0, 0), (-1, 0), (-1, +1), (0, -2), (-1, -2) },
+                    new []{ (0, 0), (+1, 0), (+1, -1), (0, +2), (+1, +2) },
+                    new []{ (0, 0), (+1, 0), (+1, +1), (0, -2), (+1, -2) },
+                    new []{ (0, 0), (-1, 0), (-1, -1), (0, +2), (-1, +2) },
+                },
+                [MinoType.SC_Z] = new[]
+             {
+                    new []{ (0, 0), (-1, 0), (-1, +1), (0, -2), (-1, -2) },
+                    new []{ (0, 0), (+1, 0), (+1, -1), (0, +2), (+1, +2) },
+                    new []{ (0, 0), (+1, 0), (+1, +1), (0, -2), (+1, -2) },
+                    new []{ (0, 0), (-1, 0), (-1, -1), (0, +2), (-1, +2) },
+                },
+
+            };
+            _180KickTable = new Dictionary<MinoType, (int y, int x)[][]>
+            {
+                {
+                    MinoType.SC_I, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_J, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_L, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_O, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_S, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_T, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_Z, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                }
+            };
+        }
+    }
+    public class KOSRotationSystem: SRSRotationSystem
+    {
+        public KOSRotationSystem():base()
+        {
+            _180KickTable = new Dictionary<MinoType, (int y, int x)[][]>
+            {
+                {
+                    MinoType.SC_I, new[]
+                    {
+                        new []{ (0, 0) , (0, 3), (0, -3)},
+                        new []{ (0, 0) , (0, 3), (0, -3)},
+                        new []{ (0, 0) , (0, 3), (0, -3)},
+                        new []{ (0, 0) , (0, 3), (0, -3)},
+                    }
+                },
+                {
+                    MinoType.SC_J, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_L, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_O, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_S, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_T, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                },
+                {
+                    MinoType.SC_Z, new[]
+                    {
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                        new []{ (0, 0) },
+                    }
+                }
+            };
         }
     }
 }

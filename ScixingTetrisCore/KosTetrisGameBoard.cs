@@ -9,9 +9,10 @@ namespace ScixingTetrisCore
 {
     public class KosTetrisGameBoard: TetrisGameViewBoard
     {
-        public KosTetrisGameBoard(int Width = 10, int Height = 40, int ShowHeight = 20, ITetrisRule tetrisRule = null, ITetrisMinoGenerator tetrisMinoGenerator = null) :
+        public KosTetrisGameBoard(int Width = 10, int Height = 25, int ShowHeight = 25, ITetrisRule tetrisRule = null, ITetrisMinoGenerator tetrisMinoGenerator = null) :
            base(Width, Height, ShowHeight, tetrisRule, tetrisMinoGenerator)
         {
+            TetrisRule = tetrisRule ?? ScixingTetrisCore.Rule.TetrisRule.KOS;
             var mlist = tetrisMinoGenerator.GetMinoList();
             foreach (var m in mlist)
             {

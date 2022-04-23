@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScixingTetrisCore.Rule;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,11 @@ namespace ScixingTetrisCore.Interface
         /// 旋转系统
         /// </summary>
         IRotationSystem RotationSystem { get; }
+        IGarbageGenerator GarbageGenerator { get; }
+        ITetrisMinoGenerator MinoGenerator { get; }
+
+        SpinRule SpinRule { get; }
+
         ///// <summary>
         ///// 攻击表（？ 感觉要换一下
         ///// </summary>

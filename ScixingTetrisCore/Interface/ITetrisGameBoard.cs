@@ -33,6 +33,7 @@ namespace ScixingTetrisCore.Interface
         /// </summary>
         /// <returns></returns>
         bool _180Rotation();
+        
         /// <summary>
         /// 左移
         /// </summary>
@@ -43,6 +44,11 @@ namespace ScixingTetrisCore.Interface
         /// </summary>
         /// <returns></returns>
         bool MoveRight();
+        /// <summary>
+        /// 上移
+        /// </summary>
+        /// <returns></returns>
+        bool MoveUp();
         /// <summary>
         /// 软降
         /// </summary>
@@ -72,6 +78,7 @@ namespace ScixingTetrisCore.Interface
         void ResetGame();
 
         void ReceiveGarbage(List<int> garbages);
+        //void AddField(List<byte[]> field);
         
     }
 }

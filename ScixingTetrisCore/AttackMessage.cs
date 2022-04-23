@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScixingTetrisCore.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace ScixingTetrisCore
     {
         None,
         Tspin,
-        MiniTspin,
+        Minispin,
         Spin,
     }
     /// <summary>
@@ -18,6 +19,7 @@ namespace ScixingTetrisCore
     /// </summary>
     public class AttackMessage
     {
+        public ITetrisMinoStatus tetrisMinoStatus;
         /// <summary>
         /// 是否全消
         /// </summary>

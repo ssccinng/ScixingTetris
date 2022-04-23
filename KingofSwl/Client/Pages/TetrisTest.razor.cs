@@ -21,7 +21,7 @@ namespace KingofSwl.Client.Pages
             "#145b7d",
             "#7fb80e",
             "#d71345",
-            "",
+            "lightgray",
             "",
             "",
             "#33a3dc3f",

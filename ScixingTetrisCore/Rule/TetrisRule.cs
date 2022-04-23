@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using ScixingTetrisCore.Interface;
 using ScixingTetrisCore.Rule;
+using ScixingTetrisCore.Tools;
+
 namespace ScixingTetrisCore.Rule
 {
     public abstract class TetrisRule : ITetrisRule
@@ -17,7 +19,7 @@ namespace ScixingTetrisCore.Rule
         //    FieldCheck = Rule.FieldCheck.GuildLine,
         //    CheckMinoOk = (tetrisBoard, tetrisMinoStatus) => FieldCheck.IsMinoOk(tetrisBoard, tetrisMinoStatus),
         //};
-        
+
         public static readonly GuildLineRule GuildLine = new();
         /// <summary>
         /// KingOfStacker
@@ -40,7 +42,7 @@ namespace ScixingTetrisCore.Rule
         /// C2(忘了怎么拼)
         /// </summary>
         public static readonly TetrisRule C2;
-        
+
         //public static readonly TetrisRule KOS;
         /// <summary>
         /// Jstris
@@ -59,6 +61,12 @@ namespace ScixingTetrisCore.Rule
         /// 攻击表
         /// </summary>
         protected AttackRule _attackRule { get; set; }
+
+        public IGarbageGenerator GarbageGenerator { get; protected set; }
+
+        public ITetrisMinoGenerator MinoGenerator{ get; protected set; }
+
+        public SpinRule SpinRule { get; protected set; }
 
         protected IFieldCheck _fieldCheck;
         public abstract bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
@@ -80,6 +88,9 @@ namespace ScixingTetrisCore.Rule
         public GuildLineRule()
         {
             RotationSystem = ScixingTetrisCore.Rule.RotationSystem.SRS;
+            MinoGenerator = new Bag7Generator<TetrisMino>();
+            GarbageGenerator = new GuildLineGG();
+            SpinRule = SpinRule.TSpinRule;
             //RotationSystem = ScixingTetrisCore.Rule.RotationSystem.Geek,
             _fieldCheck = FCGuildLine.FieldCheck;
             _attackRule = ARGuildLine.Guideline;
@@ -105,6 +116,8 @@ namespace ScixingTetrisCore.Rule
         public KOSRule():base()
         {
             RotationSystem = ScixingTetrisCore.Rule.RotationSystem.KOSSRS;
+            // 有两种
+            SpinRule = SpinRule.AllSpinMoveAbleRule;
         }
     }
 

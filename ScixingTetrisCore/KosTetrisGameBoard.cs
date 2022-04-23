@@ -58,6 +58,7 @@ namespace ScixingTetrisCore
         public int ClearLineCnt { get; private set; } = 0;
         public override bool LockMino()
         {
+            var SpinCheck1 = TetrisRule.SpinRule.IsSpinBeforeClean(this);
             //if(TetrisRule)
             var minoList = TetrisMinoStatus.GetMinoFieldListInBoard();
             // 要不不检查了（？
@@ -67,8 +68,15 @@ namespace ScixingTetrisCore
                 //Field[pos.X][pos.Y] = 1;
                 Field[pos.X][pos.Y] = (byte)(TetrisMinoStatus.TetrisMino.MinoType + 1);
             }
-            ClearLineCnt += TryClearLines();
+            AttackMessage attackMessage = TryClearLines();
+
+            ClearLineCnt += attackMessage.ClearRows;
+            var spinType = TetrisRule.SpinRule.GetSpinTypeAfterClean(this, TetrisMinoStatus, attackMessage);
+            // 需要思考是否用事件触发攻击事件
             SpawnNewPiece();
+            //ReceiveGarbage(new List<int> { 1, 2 });
+            //ReceiveGarbage(new List<int> { 1});
+            //GetGarbage();
             return true;
         }
         public override void ResetGame()
@@ -77,5 +85,97 @@ namespace ScixingTetrisCore
             ClearLineCnt = 0;
             base.ResetGame();
         }
+
+        public void AddGarbageToField()
+        {
+            //List<Byte[]> Gabarge = new();
+            List<byte[]> Gabarge  = TetrisRule.GarbageGenerator.GetGarbage(GarbageStack);
+            GarbageStack.Clear();
+            AddField(Gabarge);
+            //while (GarbageStack.Count > 0)
+            //{
+
+
+            //}
+        }
+
+        public override AttackMessage TryClearLines()
+        {
+            AttackMessage message = new();
+            int cnt = 0;
+            // 限制一下搜索高度
+            //List<int> clearidx = new List<int>();
+            bool[] clearFlag = new bool[Height];
+            for (int i = 0; i < Height; ++i)
+            {
+                bool flag = true;
+                for (int j = 0; j < Width; ++j)
+                {
+                    if (Field[i][j] == 0)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) { cnt++; clearFlag[i] = true; }
+            }
+
+            if (cnt > 0) Combo++;
+            else Combo = 0;
+            bool isTspin = false;
+            // 可能要改一下
+            if (cnt > 0 && TetrisMinoStatus.LastRotation && TetrisMinoStatus.TetrisMino.MinoType == MinoType.SC_T)
+            {
+                int spinCnt = 0;
+                spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X, TetrisMinoStatus.Position.Y) ? 0 : 1;
+                spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X + 2, TetrisMinoStatus.Position.Y) ? 0 : 1;
+                spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X, TetrisMinoStatus.Position.Y + 2) ? 0 : 1;
+                spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X + 2, TetrisMinoStatus.Position.Y + 2) ? 0 : 1;
+                if (spinCnt >= 3) isTspin = true;
+                if (spinCnt >= 3) Console.WriteLine("Tspin");
+            }
+
+
+            if (cnt == 4 || isTspin) B2B++;
+            for (int i = 0, j = 0; i < Height; ++i, ++j)
+            {
+                while (j < Height && clearFlag[j])
+                {
+                    ++j;
+                }
+                if (j >= Height)
+                {
+                    Field[i] = new byte[Width];
+                }
+                else
+                {
+                    Field[i] = Field[j];
+                }
+
+            }
+
+            message.ClearRows = cnt;
+            message.B2B = B2B;
+            message.ClearType = isTspin ? ClearType.Tspin : ClearType.None;
+            message.Combo = Combo;
+            message.IsPerfectClear = IsPrefect();
+            return message;
+        }
     }
+
+    public class KosServerBoard: KosTetrisGameBoard
+    {
+        public KosClientBoard CreateClient()
+        {
+            KosClientBoard kosClientBoard = new();
+
+            return kosClientBoard;
+        }
+    }
+    public class KosClientBoard : KosTetrisGameBoard { 
+    
+    
+    
+    }
+
 }

@@ -64,8 +64,8 @@ namespace ScixingTetrisCore.Rule
                 case ClearType.Tspin:
                     atk += TspinAttack[attackMessage.ClearRows];
                     break;
-                case ClearType.MiniTspin:
-                    atk += ClearRowAttack[attackMessage.ClearRows];
+                case ClearType.Minispin:
+                    atk += MiniTspinAttack[attackMessage.ClearRows];
                     break;
                 default:
                     break;
@@ -88,7 +88,7 @@ namespace ScixingTetrisCore.Rule
                 case ClearType.Tspin:
                     atk += TspinAttack[attackMessage.ClearRows];
                     break;
-                case ClearType.MiniTspin:
+                case ClearType.Minispin:
                     atk += ClearRowAttack[attackMessage.ClearRows];
                     break;
                 default:

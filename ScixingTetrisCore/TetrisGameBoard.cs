@@ -20,7 +20,7 @@ namespace ScixingTetrisCore
         public int[] ColHeight { get; set; }
         public ITetrisRule TetrisRule { get; protected set; }
 
-        //public Queue<ITetrisMino> NextQueue => throw new NotImplementedException();
+        //public Queue<ITetrisMino> NextQueue => throw new NotImplementedException(); 
         public Queue<ITetrisMino> NextQueue { get; } = new();
 
         public bool IsDead => throw new NotImplementedException();
@@ -34,6 +34,10 @@ namespace ScixingTetrisCore
         /// 生成器 要在这里吗（
         /// </summary>
         public ITetrisMinoGenerator TetrisMinoGenerator;
+        /// <summary>
+        /// 垃圾行储存
+        /// </summary>
+        public List<int> GarbageStack { get; } = new();
 
         //public IFieldCheck FieldCheck => throw new NotImplementedException();
 
@@ -71,8 +75,9 @@ namespace ScixingTetrisCore
             }
             SpawnNewPiece();
         }
-        public int TryClearLines()
+        public virtual AttackMessage TryClearLines()
         {
+            AttackMessage message = new ();
             int cnt = 0;
             // 限制一下搜索高度
             //List<int> clearidx = new List<int>();
@@ -122,8 +127,13 @@ namespace ScixingTetrisCore
                 }
 
             }
-            
-            return cnt;
+
+            message.ClearRows = cnt;
+            message.B2B = B2B;
+            message.ClearType = isTspin ? ClearType.Tspin : ClearType.None;
+            message.Combo = Combo;
+            message.IsPerfectClear = IsPrefect();
+            return message;
         }
 
         /// <summary>
@@ -255,6 +265,17 @@ namespace ScixingTetrisCore
             return false;
         }
 
+        public bool MoveUp()
+        {
+            TetrisMinoStatus.MoveTop();
+            if (TetrisRule.CheckMinoOk(this, TetrisMinoStatus))
+            {
+                TetrisMinoStatus.LastRotation = false;
+                return true;
+            }
+            TetrisMinoStatus.MoveBottom();
+            return false;
+        }
         public bool SoftDrop()
         {
             TetrisMinoStatus.MoveBottom();
@@ -331,14 +352,42 @@ namespace ScixingTetrisCore
                 ColHeight[i] = 0;
             }
             HoldMino = null;
+            //for (int i = 0; i < ColHeight.Length; i++)
+            //{
+            //    ColHeight[i] = 0;
+            //}
             TetrisMinoGenerator.Reset();
             GameStart();
             //ColHeight = new int[Width];
         }
 
-        public void ReceiveGarbage(List<int> garbages)
+        public virtual void ReceiveGarbage(List<int> garbages)
         {
-            
+            for (int i = 0; i < garbages.Count; i++)
+            {
+                GarbageStack.Add(garbages[i]);
+            }
+        }
+
+        public virtual void AddField(List<byte[]> field)
+        {
+            for (int i = Height - field.Count - 1; i >= 0 ; --i)
+            {
+                Field[i + field.Count] = Field[i];
+            }
+            for (int i = 0; i < field.Count && i < Height; i++)
+            {
+                Field[i] = field[i];    
+            }
+            //for (int i = 0; i < ColHeight.Length; i++)
+            //{
+            //    ColHeight[i] += field.Count;
+            //}
+            //throw new NotImplementedException();
+        }
+        public virtual bool IsPrefect()
+        {
+            return !Field[0].Any(s => s != 0);
         }
     }
 }

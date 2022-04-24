@@ -66,7 +66,7 @@ namespace ScixingTetrisCore.Rule
 
         public ITetrisMinoGenerator MinoGenerator{ get; protected set; }
 
-        public SpinRule SpinRule { get; protected set; }
+        public SpinB2BRule SpinRule { get; protected set; }
 
         protected IFieldCheck _fieldCheck;
         public abstract bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
@@ -90,7 +90,7 @@ namespace ScixingTetrisCore.Rule
             RotationSystem = ScixingTetrisCore.Rule.RotationSystem.SRS;
             MinoGenerator = new Bag7Generator<TetrisMino>();
             GarbageGenerator = new GuildLineGG();
-            SpinRule = SpinRule.TSpinRule;
+            SpinRule = SpinB2BRule.TSpinRule;
             //RotationSystem = ScixingTetrisCore.Rule.RotationSystem.Geek,
             _fieldCheck = FCGuildLine.FieldCheck;
             _attackRule = ARGuildLine.Guideline;
@@ -117,7 +117,7 @@ namespace ScixingTetrisCore.Rule
         {
             RotationSystem = ScixingTetrisCore.Rule.RotationSystem.KOSSRS;
             // 有两种
-            SpinRule = SpinRule.AllSpinMoveAbleRule;
+            SpinRule = SpinB2BRule.AllSpinMoveAbleRule;
         }
     }
 

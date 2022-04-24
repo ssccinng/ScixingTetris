@@ -26,17 +26,18 @@ namespace ScixingTetrisCore
         public void LeftRoll()
         {
             Stage += 3;
-            Stage %= 4;
+            Stage &= 3;
         }
         public void RightRoll()
         {
             Stage++;
-            Stage %= 4;
+            Stage &= 3;
         }
         public void _180Roll()
         {
             Stage += 2;
-            Stage %= 4;
+            //Stage %= 4;
+            Stage &= 3;
         }
         public void MoveLeft(int distance = 1)
         {

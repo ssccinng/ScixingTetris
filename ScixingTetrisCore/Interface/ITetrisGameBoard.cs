@@ -12,7 +12,7 @@ namespace ScixingTetrisCore.Interface
     public interface ITetrisGameBoard: ITetrisRuleBoard
     {
         
-        // 需要吗
+        // 需要吗内联吗
         /// <summary>
         /// Next表
         /// </summary>

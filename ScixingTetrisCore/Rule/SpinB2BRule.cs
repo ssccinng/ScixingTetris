@@ -7,18 +7,38 @@ using System.Threading.Tasks;
 
 namespace ScixingTetrisCore.Rule
 {
-    public abstract class SpinRule
+    public abstract class SpinB2BRule
     {
+        // 需要增加b2b判定
+
         public static readonly TSpinRule TSpinRule = new ();
         public static readonly AllSpinMoveAbleRule AllSpinMoveAbleRule = new ();
-        public abstract bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard);
+        /// <summary>
+        /// 判断锁块前是否是spin态
+        /// </summary>
+        /// <param name="tetrisGameBoard"></param>
+        /// <returns></returns>
+        public abstract bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino);
         public abstract ClearType GetSpinTypeAfterClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino, AttackMessage attackMessage);
     }
-    public class TSpinRule : SpinRule
+    public class TSpinRule : SpinB2BRule
     {
-        public override bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard)
+        public override bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino)
         {
-            return true;
+            //if (tetrisMino.TetrisMino.MinoType != MinoType.SC_T) return false;
+            if (tetrisMino.LastRotation && tetrisMino.TetrisMino.MinoType == MinoType.SC_T)
+            {
+                int spinCnt = 0;
+                spinCnt += tetrisGameBoard.TetrisRule.CheckPostionOk(tetrisGameBoard, tetrisMino.Position.X, tetrisMino.Position.Y) ? 0 : 1;
+                spinCnt += tetrisGameBoard.TetrisRule.CheckPostionOk(tetrisGameBoard, tetrisMino.Position.X + 2, tetrisMino.Position.Y) ? 0 : 1;
+                spinCnt += tetrisGameBoard.TetrisRule.CheckPostionOk(tetrisGameBoard, tetrisMino.Position.X, tetrisMino.Position.Y + 2) ? 0 : 1;
+                spinCnt += tetrisGameBoard.TetrisRule.CheckPostionOk(tetrisGameBoard, tetrisMino.Position.X + 2, tetrisMino.Position.Y + 2) ? 0 : 1;
+                //return true;
+                if (spinCnt >= 3) return true;
+            }
+            //tetrisGameBoard.
+            /// 三角判定
+            return false;
         }
         public override ClearType GetSpinTypeAfterClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino, AttackMessage attackMessage)
         {
@@ -32,7 +52,7 @@ namespace ScixingTetrisCore.Rule
             }
         }
     }
-    public class AllSpinMoveAbleRule : SpinRule
+    public class AllSpinMoveAbleRule : SpinB2BRule
     {
         public override ClearType GetSpinTypeAfterClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino, AttackMessage attackMessage)
         {
@@ -76,7 +96,7 @@ namespace ScixingTetrisCore.Rule
             }
         }
 
-        public override bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard)
+        public override bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino)
         {
             if (tetrisGameBoard.MoveUp())
             {
@@ -102,7 +122,7 @@ namespace ScixingTetrisCore.Rule
 
         }
     }
-    public class ZXCSpinRule : SpinRule
+    public class ZXCSpinRule : SpinB2BRule
     {
 
         public override ClearType GetSpinTypeAfterClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino, AttackMessage attackMessage)
@@ -111,7 +131,7 @@ namespace ScixingTetrisCore.Rule
             //throw new NotImplementedException();
         }
 
-        public override bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard)
+        public override bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino)
         {
             throw new NotImplementedException();
         }

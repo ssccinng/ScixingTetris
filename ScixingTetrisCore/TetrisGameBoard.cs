@@ -75,6 +75,85 @@ namespace ScixingTetrisCore
             }
             SpawnNewPiece();
         }
+        private bool[] CountClearLines()
+        {
+            bool[] clearFlag = new bool[Height];
+            //List<byte> clearFlag = new();
+            for (int i = 0; i < Height; ++i)
+            {
+
+                for (int j = 0; j < Width; ++j)
+                {
+                    if (Field[i][j] == 0)
+                    {
+                        clearFlag[i] = true;
+ 
+                        break;
+                    }
+                }
+            }
+            return clearFlag;
+        }
+        //private List<byte> CountClearLines()
+        //{
+        //    //bool[] clearFlag = new bool[Height];
+        //    List<byte> clearFlag = new();
+        //    for (int i = 0; i < Height; ++i)
+        //    {
+  
+        //        for (int j = 0; j < Width; ++j)
+        //        {
+        //            if (Field[i][j] == 0)
+        //            {
+        //                //clearFlag[i] = true;
+        //                clearFlag.Add(i);
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    return clearFlag;
+        //}
+        //private void ClearLine(List<bool> clearFlag)
+        //{
+        //    int idx = 0;
+        //    for (int i = 0, j = 0; i < Height; ++i, ++j)
+        //    {
+        //        while (j < Height && clearFlag[idx] == j)
+        //        {
+        //            ++j;
+        //            idx++;
+        //        }
+        //        if (j >= Height)
+        //        {
+        //            Field[i] = new byte[Width];
+        //        }
+        //        else
+        //        {
+        //            Field[i] = Field[j];
+        //        }
+
+        //    }
+        //}
+        private void ClearLine(bool[] clearFlag)
+        {
+            for (int i = 0, j = 0; i < Height; ++i, ++j)
+            {
+                while (j < Height && clearFlag[j])
+                {
+                    ++j;
+                }
+                if (j >= Height)
+                {
+                    Field[i] = new byte[Width];
+                }
+                else
+                {
+                    Field[i] = Field[j];
+                }
+
+            }
+        }
+
         public virtual AttackMessage TryClearLines()
         {
             AttackMessage message = new ();
@@ -98,6 +177,8 @@ namespace ScixingTetrisCore
             
             if (cnt > 0) Combo++;
             else Combo = 0;
+            // 以上位消行检测
+
             bool isTspin = false;
             // 可能要改一下
             if (cnt > 0 && TetrisMinoStatus.LastRotation && TetrisMinoStatus.TetrisMino.MinoType == MinoType.SC_T)
@@ -111,6 +192,9 @@ namespace ScixingTetrisCore
                 if (spinCnt >= 3) Console.WriteLine("Tspin");
             }
             if (cnt == 4 || isTspin) B2B++;
+
+
+            // 以下为消行行为
             for (int i = 0, j = 0; i < Height; ++i, ++j)
             {
                 while (j < Height && clearFlag[j])

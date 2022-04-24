@@ -226,7 +226,8 @@ namespace ScixingTetrisCore.Rule
 
         public (bool isSuccess, int kickCnt) LeftRotation(ITetrisRuleBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
-            var kickTable = KickTable[tetrisMinoStatus.TetrisMino.MinoType][(tetrisMinoStatus.Stage + 3) % 4];
+            //var kickTable = KickTable[tetrisMinoStatus.TetrisMino.MinoType][(tetrisMinoStatus.Stage + 3) % 4];
+            var kickTable = KickTable[tetrisMinoStatus.TetrisMino.MinoType][(tetrisMinoStatus.Stage + 3) & 3];
             var temp = tetrisMinoStatus.Position;
             tetrisMinoStatus.LeftRoll();
             for (int i = 0; i < kickTable.Length; ++i)

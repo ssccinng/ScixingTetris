@@ -58,7 +58,7 @@ namespace ScixingTetrisCore
         public int ClearLineCnt { get; private set; } = 0;
         public override bool LockMino()
         {
-            var SpinCheck1 = TetrisRule.SpinRule.IsSpinBeforeClean(this);
+            var SpinCheck1 = TetrisRule.SpinRule.IsSpinBeforeClean(this, TetrisMinoStatus);
             //if(TetrisRule)
             var minoList = TetrisMinoStatus.GetMinoFieldListInBoard();
             // 要不不检查了（？

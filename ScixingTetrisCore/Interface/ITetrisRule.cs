@@ -33,6 +33,6 @@ namespace ScixingTetrisCore.Interface
 
         bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
         bool CheckPostionOk(ITetrisBoard tetrisBoard, int x, int y);
-        List<int> GetAttack(AttackMessage attackMessage);
+        List<int> GetAttack(ClearMessage attackMessage);
     }
 }

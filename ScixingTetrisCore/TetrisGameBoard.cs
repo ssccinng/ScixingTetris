@@ -75,9 +75,11 @@ namespace ScixingTetrisCore
             }
             SpawnNewPiece();
         }
-        private bool[] CountClearLines()
+        protected ClearMessage CountClearLines()
         {
+            ClearMessage count = new ClearMessage();
             bool[] clearFlag = new bool[Height];
+            count.ClearFlag = clearFlag;
             //List<byte> clearFlag = new();
             for (int i = 0; i < Height; ++i)
             {
@@ -87,12 +89,12 @@ namespace ScixingTetrisCore
                     if (Field[i][j] == 0)
                     {
                         clearFlag[i] = true;
- 
+                        ++count.ClearRows;
                         break;
                     }
                 }
             }
-            return clearFlag;
+            return count;
         }
         //private List<byte> CountClearLines()
         //{
@@ -134,7 +136,7 @@ namespace ScixingTetrisCore
 
         //    }
         //}
-        private void ClearLine(bool[] clearFlag)
+        protected void ClearLine(bool[] clearFlag)
         {
             for (int i = 0, j = 0; i < Height; ++i, ++j)
             {
@@ -154,9 +156,9 @@ namespace ScixingTetrisCore
             }
         }
 
-        public virtual AttackMessage TryClearLines()
+        public virtual ClearMessage TryClearLines()
         {
-            AttackMessage message = new ();
+            ClearMessage message = new ();
             int cnt = 0;
             // 限制一下搜索高度
             //List<int> clearidx = new List<int>();
@@ -271,13 +273,14 @@ namespace ScixingTetrisCore
         public virtual bool LockMino()
         {
             //if(TetrisRule)
+
             var minoList = TetrisMinoStatus.GetMinoFieldListInBoard();
             // 要不不检查了（？
             // 断言此时的场地和方块是ok的
-            foreach (var pos in minoList)
+            foreach (var (X, Y) in minoList)
             {
                 //Field[pos.X][pos.Y] = 1;
-                Field[pos.X][pos.Y] = (byte)(TetrisMinoStatus.TetrisMino.MinoType + 1);
+                Field[X][Y] = (byte)(TetrisMinoStatus.TetrisMino.MinoType + 1);
             }
             TryClearLines();
             SpawnNewPiece();

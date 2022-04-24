@@ -72,7 +72,7 @@ namespace ScixingTetrisCore.Rule
         public abstract bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
         public abstract bool CheckPostionOk(ITetrisBoard tetrisBoard, int x, int y);
 
-        public abstract List<int> GetAttack(AttackMessage attackMessage);
+        public abstract List<int> GetAttack(ClearMessage attackMessage);
     }
 
     public class GuildLineRule : TetrisRule
@@ -105,7 +105,7 @@ namespace ScixingTetrisCore.Rule
             return _fieldCheck.IsPositionOk(tetrisBoard, x, y);
         }
 
-        public override List<int> GetAttack(AttackMessage attackMessage)
+        public override List<int> GetAttack(ClearMessage attackMessage)
         {
             throw new NotImplementedException();
         }
@@ -140,7 +140,7 @@ namespace ScixingTetrisCore.Rule
             throw new NotImplementedException();
         }
 
-        public override List<int> GetAttack(AttackMessage attackMessage)
+        public override List<int> GetAttack(ClearMessage attackMessage)
         {
             throw new NotImplementedException();
         }

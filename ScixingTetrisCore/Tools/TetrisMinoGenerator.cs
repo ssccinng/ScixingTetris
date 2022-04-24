@@ -67,6 +67,7 @@ namespace ScixingTetrisCore.Tools
                 foreach (var res in list.OrderBy(s => rnd.Next()))
                 {
                     yield return res;
+                    //yield return list[1];
                 }
             }
         }

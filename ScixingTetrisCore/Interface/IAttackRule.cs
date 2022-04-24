@@ -13,7 +13,7 @@ namespace ScixingTetrisCore.Interface
         //public int[] MiniTspinAttack { get; }
         //public int PerfectClearAttack { get; }
         //public int[] ClearRowAttack { get; }
-        List<int> DamageCalc(AttackMessage attackMessage);
-        int DamageCalcSimple(AttackMessage attackMessage);
+        List<int> DamageCalc(ClearMessage attackMessage);
+        int DamageCalcSimple(ClearMessage attackMessage);
     }
 }

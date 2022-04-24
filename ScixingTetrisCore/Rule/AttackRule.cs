@@ -32,8 +32,8 @@ namespace ScixingTetrisCore.Rule
         public int[] ClearRowAttack { get; protected set; }
         public int PerfectClearAttack { get; protected set; }
 
-        public abstract List<int> DamageCalc(AttackMessage attackMessage);
-        public abstract int DamageCalcSimple(AttackMessage attackMessage);
+        public abstract List<int> DamageCalc(ClearMessage attackMessage);
+        public abstract int DamageCalcSimple(ClearMessage attackMessage);
 
         //public Func<int, int> DamageCalc;
     }
@@ -50,7 +50,7 @@ namespace ScixingTetrisCore.Rule
             //DamageCale
         };
         // 要不要传出总伤害 因为有时候并不需要
-        public override List<int> DamageCalc(AttackMessage attackMessage)
+        public override List<int> DamageCalc(ClearMessage attackMessage)
         {
             List<int> res = new List<int>();
             if (attackMessage.IsPerfectClear) res.Add(PerfectClearAttack);
@@ -75,7 +75,7 @@ namespace ScixingTetrisCore.Rule
             return res;
         }
 
-        public override int DamageCalcSimple(AttackMessage attackMessage)
+        public override int DamageCalcSimple(ClearMessage attackMessage)
         {
             int atk = 0;
             if (attackMessage.IsPerfectClear) atk += PerfectClearAttack;
@@ -99,4 +99,7 @@ namespace ScixingTetrisCore.Rule
         }
     }
 
+
+    public class EPlusAttackRule { 
+    }
 }

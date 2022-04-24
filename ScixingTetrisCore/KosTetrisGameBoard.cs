@@ -9,9 +9,12 @@ namespace ScixingTetrisCore
 {
     public class KosTetrisGameBoard: TetrisGameViewBoard
     {
+
+        public string GameMessage = "";
         public KosTetrisGameBoard(int Width = 10, int Height = 25, int ShowHeight = 25, ITetrisRule tetrisRule = null, ITetrisMinoGenerator tetrisMinoGenerator = null) :
            base(Width, Height, ShowHeight, tetrisRule, tetrisMinoGenerator)
         {
+            DefaultPos = (22, 3);
             TetrisRule = tetrisRule ?? ScixingTetrisCore.Rule.TetrisRule.KOS;
             var mlist = tetrisMinoGenerator.GetMinoList();
             foreach (var m in mlist)
@@ -59,19 +62,27 @@ namespace ScixingTetrisCore
         public override bool LockMino()
         {
             var SpinCheck1 = TetrisRule.SpinRule.IsSpinBeforeClean(this, TetrisMinoStatus);
+
+
             //if(TetrisRule)
             var minoList = TetrisMinoStatus.GetMinoFieldListInBoard();
             // 要不不检查了（？
             // 断言此时的场地和方块是ok的
-            foreach (var pos in minoList)
+            foreach (var (X, Y) in minoList)
             {
                 //Field[pos.X][pos.Y] = 1;
-                Field[pos.X][pos.Y] = (byte)(TetrisMinoStatus.TetrisMino.MinoType + 1);
+                Field[X][Y] = (byte)(TetrisMinoStatus.TetrisMino.MinoType + 1);
             }
-            AttackMessage attackMessage = TryClearLines();
+            ClearMessage attackMessage = TryClearLines();
 
             ClearLineCnt += attackMessage.ClearRows;
-            var spinType = TetrisRule.SpinRule.GetSpinTypeAfterClean(this, TetrisMinoStatus, attackMessage);
+            if (SpinCheck1)
+            {
+                var spinType = TetrisRule.SpinRule.GetSpinTypeAfterClean(this, TetrisMinoStatus, attackMessage);
+                attackMessage.ClearType = spinType;
+
+            }
+            GameMessage = $"{TetrisMinoStatus.TetrisMino.MinoType} {attackMessage.ClearType} {attackMessage.ClearRows}";
             // 需要思考是否用事件触发攻击事件
             SpawnNewPiece();
             //ReceiveGarbage(new List<int> { 1, 2 });
@@ -99,9 +110,9 @@ namespace ScixingTetrisCore
             //}
         }
 
-        public override AttackMessage TryClearLines()
+        public override ClearMessage TryClearLines()
         {
-            AttackMessage message = new();
+            ClearMessage message = new();
             int cnt = 0;
             // 限制一下搜索高度
             //List<int> clearidx = new List<int>();
@@ -122,21 +133,21 @@ namespace ScixingTetrisCore
 
             if (cnt > 0) Combo++;
             else Combo = 0;
-            bool isTspin = false;
-            // 可能要改一下
-            if (cnt > 0 && TetrisMinoStatus.LastRotation && TetrisMinoStatus.TetrisMino.MinoType == MinoType.SC_T)
-            {
-                int spinCnt = 0;
-                spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X, TetrisMinoStatus.Position.Y) ? 0 : 1;
-                spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X + 2, TetrisMinoStatus.Position.Y) ? 0 : 1;
-                spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X, TetrisMinoStatus.Position.Y + 2) ? 0 : 1;
-                spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X + 2, TetrisMinoStatus.Position.Y + 2) ? 0 : 1;
-                if (spinCnt >= 3) isTspin = true;
-                if (spinCnt >= 3) Console.WriteLine("Tspin");
-            }
+            //bool isTspin = false;
+            //// 可能要改一下
+            //if (cnt > 0 && TetrisMinoStatus.LastRotation && TetrisMinoStatus.TetrisMino.MinoType == MinoType.SC_T)
+            //{
+            //    int spinCnt = 0;
+            //    spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X, TetrisMinoStatus.Position.Y) ? 0 : 1;
+            //    spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X + 2, TetrisMinoStatus.Position.Y) ? 0 : 1;
+            //    spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X, TetrisMinoStatus.Position.Y + 2) ? 0 : 1;
+            //    spinCnt += TetrisRule.CheckPostionOk(this, TetrisMinoStatus.Position.X + 2, TetrisMinoStatus.Position.Y + 2) ? 0 : 1;
+            //    if (spinCnt >= 3) isTspin = true;
+            //    if (spinCnt >= 3) Console.WriteLine("Tspin");
+            //}
 
 
-            if (cnt == 4 || isTspin) B2B++;
+            //if (cnt == 4 || isTspin) B2B++;
             for (int i = 0, j = 0; i < Height; ++i, ++j)
             {
                 while (j < Height && clearFlag[j])
@@ -156,7 +167,6 @@ namespace ScixingTetrisCore
 
             message.ClearRows = cnt;
             message.B2B = B2B;
-            message.ClearType = isTspin ? ClearType.Tspin : ClearType.None;
             message.Combo = Combo;
             message.IsPerfectClear = IsPrefect();
             return message;

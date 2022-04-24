@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ScixingTetrisCore.Messages
 {
-    internal class ClearMessage
+    internal class ClearMessage1
     {
         public int ClearRows { get; set; }
         public ITetrisMinoStatus tetrisMinoStatus { get; set; }

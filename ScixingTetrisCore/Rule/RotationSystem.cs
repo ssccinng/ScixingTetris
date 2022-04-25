@@ -224,7 +224,7 @@ namespace ScixingTetrisCore.Rule
         public Dictionary<MinoType, (int y, int x)[][]> KickTable;
         public Dictionary<MinoType, (int y, int x)[][]> _180KickTable;
 
-        public (bool isSuccess, int kickCnt) LeftRotation(ITetrisRuleBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
+        public virtual (bool isSuccess, int kickCnt) LeftRotation(ITetrisRuleBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
             //var kickTable = KickTable[tetrisMinoStatus.TetrisMino.MinoType][(tetrisMinoStatus.Stage + 3) % 4];
             var kickTable = KickTable[tetrisMinoStatus.TetrisMino.MinoType][(tetrisMinoStatus.Stage + 3) & 3];
@@ -235,7 +235,10 @@ namespace ScixingTetrisCore.Rule
                 tetrisMinoStatus.Position = (temp.X - kickTable[i].x, temp.Y - kickTable[i].y);
                 if (tetrisGameBoard.TetrisRule.CheckMinoOk(tetrisGameBoard, tetrisMinoStatus))
                 {
+                    // 这个可能更改位置 需要思考效率问题
                     tetrisMinoStatus.LastRotation = true;
+                    tetrisMinoStatus.Kickcnt = i;
+
                     return (true, i);
                 }
             }
@@ -244,7 +247,7 @@ namespace ScixingTetrisCore.Rule
             return (false, -1);
         }
 
-        public (bool isSuccess, int kickCnt) RightRotation(ITetrisRuleBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
+        public virtual (bool isSuccess, int kickCnt) RightRotation(ITetrisRuleBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
             var kickTable = KickTable[tetrisMinoStatus.TetrisMino.MinoType][tetrisMinoStatus.Stage];
             var temp = tetrisMinoStatus.Position;
@@ -255,6 +258,7 @@ namespace ScixingTetrisCore.Rule
                 if (tetrisGameBoard.TetrisRule.CheckMinoOk(tetrisGameBoard, tetrisMinoStatus))
                 {
                     tetrisMinoStatus.LastRotation = true;
+                    tetrisMinoStatus.Kickcnt = i;
                     return (true, i);
                 }
             }
@@ -263,7 +267,7 @@ namespace ScixingTetrisCore.Rule
             return (false, -1);
         }
 
-        public (bool isSuccess, int kickCnt) _180Rotation(ITetrisRuleBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
+        public virtual (bool isSuccess, int kickCnt) _180Rotation(ITetrisRuleBoard tetrisGameBoard, ITetrisMinoStatus tetrisMinoStatus)
         {
             var kickTable = _180KickTable[tetrisMinoStatus.TetrisMino.MinoType][tetrisMinoStatus.Stage];
             var temp = tetrisMinoStatus.Position;
@@ -274,6 +278,7 @@ namespace ScixingTetrisCore.Rule
                 if (tetrisGameBoard.TetrisRule.CheckMinoOk(tetrisGameBoard, tetrisMinoStatus))
                 {
                     tetrisMinoStatus.LastRotation = true;
+                    tetrisMinoStatus.Kickcnt = i;
                     return (true, i);
                 }
             }

@@ -18,6 +18,7 @@ namespace ScixingTetrisCore.Interface
         /// </summary>
         (int X, int Y) Position { get; set; }
         int Stage { get; set; }
+        int Kickcnt { get; set; }
         ITetrisMino TetrisMino { get; set; }
         // 欠考虑 可能要改
         bool LastRotation { get; set; }

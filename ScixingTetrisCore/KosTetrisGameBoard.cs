@@ -164,7 +164,7 @@ namespace ScixingTetrisCore
                 }
 
             }
-
+            //message.Kickcnt = 
             message.ClearRows = cnt;
             message.B2B = B2B;
             message.Combo = Combo;

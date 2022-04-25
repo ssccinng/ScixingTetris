@@ -20,6 +20,7 @@ namespace ScixingTetrisCore
         /// </summary>
         public ITetrisMino TetrisMino { get; set; }
         public bool LastRotation { get; set; }
+        public int Kickcnt { get; set; }
 
         // 内部坐标
         protected int _x, _y;

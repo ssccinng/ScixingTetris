@@ -42,5 +42,6 @@ namespace ScixingTetrisCore
         /// B2B计数
         /// </summary>
         public int B2B;
+        //public int Kickcnt;
     }
 }

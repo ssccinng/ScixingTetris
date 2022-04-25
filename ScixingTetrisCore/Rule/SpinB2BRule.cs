@@ -61,13 +61,13 @@ namespace ScixingTetrisCore.Rule
             switch (tetrisMino.TetrisMino.MinoType)
             {
                 case MinoType.SC_I:
-                    if (tetrisMino.Stage % 2 == 0)
+                    if (tetrisMino.Stage  == 0 || tetrisMino.Stage == 2)
                     {
                         return ClearType.Spin;
                     }
                     else
                     {
-                        return attackMessage.ClearRows == 4 ? ClearType.Spin : ClearType.Minispin;
+                        return attackMessage.ClearRows == 4 || tetrisMino.Kickcnt == 0 ? ClearType.Spin : ClearType.Minispin;
                     }
                     break;
                 case MinoType.SC_O:
@@ -80,15 +80,14 @@ namespace ScixingTetrisCore.Rule
                 case MinoType.SC_J:
                 case MinoType.SC_S:
                 case MinoType.SC_Z:
-                    if (tetrisMino.Stage % 2 == 0)
+                    if (tetrisMino.Stage == 0 || tetrisMino.Stage == 2)
                     {
-                        return attackMessage.ClearRows == 2 ? ClearType.Spin : ClearType.Minispin;
+                        return attackMessage.ClearRows == 2 || tetrisMino.Kickcnt == 0 ? ClearType.Spin : ClearType.Minispin;
 
                     }
                     else
                     {
-                        return attackMessage.ClearRows == 3 ? ClearType.Spin : ClearType.Minispin;
-
+                        return attackMessage.ClearRows == 3 || tetrisMino.Kickcnt == 0 ? ClearType.Spin : ClearType.Minispin;
                     }
                     break;
                 default:

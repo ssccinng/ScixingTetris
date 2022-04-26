@@ -1,0 +1,158 @@
+﻿@using ScixingTetrisCore;
+@using ScixingTetrisCore.Tools;
+<div class="row">
+    <table>
+
+        @for (int i = 3; i >= 0; --i)
+        {
+            <tr>
+                <td class="border border-dark" width="25" height="25" style=@($"background-color:white;")></td>
+
+                @for (int j = 0; j < 4; ++j)
+                {
+                    int jj = j;
+
+                    <td class="border border-dark" width="25" height="25" style=@($"background-color:{GetColor(HoldField[i][j])};")></td>
+                }
+            </tr>
+        }
+        <tr>
+            <td height=525></td>
+        </tr>
+    </table>
+    <div style="width:25px"></div>
+    <table>
+
+        @for (int i = 24; i >= 0; --i)
+        {
+            int ii = i;
+            <tr>
+                @for (int j = 0; j < 10; ++j)
+                {
+                    int jj = j;
+
+                    <td class="border border-dark" width="25" height="25" style=@($"background-color:{GetColor(Field[i][j])};")></td>
+                }
+            </tr>
+        }
+
+        @*    <span @onkeypress="@KeyHandlerTb" @onkeydown="@KeyHandlerTb">
+            </span>*@
+        @*    <span @onkeypress="@KeyHandlerNtb" @onkeydown="@KeyHandlerNtb">
+            <InputText @bind-Value="@NtbValue"></InputText>
+            </span>*@
+
+    </table>
+    <div style="width:25px"></div>
+    <table>
+
+        @*@for (int i = 3; i >= 0; --i)
+            {
+            <tr>
+            <td class="border border-dark" width="30" height="30" style=@($"background-color:white;")></td>
+
+            @for (int j = 0; j < 4; ++j)
+            {
+            int jj = j;
+
+            <td class="border border-dark" width="30" height="30" style=@($"background-color:{GetColor(holdField[i][j])};")></td>
+            }
+            </tr>
+            }
+            <tr>
+            <td height=30></td>
+            </tr>*@
+        @foreach (var m in NextFields)
+        {
+            @for (int i = 3; i >= 1; --i)
+            {
+                <tr>
+                    <td class="border border-dark" width="25" height="25" style=@($"background-color:white;")></td>
+
+                    @for (int j = 0; j < 4; ++j)
+                    {
+                        int jj = j;
+
+                        <td class="border border-dark" width="25" height="25" style=@($"background-color:{GetColor(m[i][j])};")></td>
+                    }
+                </tr>
+            }
+        }
+
+        <tr>
+
+
+            @for (int j = 0; j < 5; ++j)
+            {
+
+                <td class="border border-dark" width="25" height="25" style=@($"background-color:white;")></td>
+            }
+        </tr>
+        <tr>
+            <td height=25></td>
+        </tr>
+        <tr>
+            <td height=25></td>
+        </tr>
+        <tr>
+            <td height=25></td>
+        </tr>
+        <tr>
+            <td height=25></td>
+        </tr>
+        <tr>
+            <td height=25></td>
+        </tr>
+        <tr>
+            <td height=25></td>
+        </tr>
+    </table>
+</div>
+
+
+@code {
+    [Parameter]
+    public byte[][] Field { get; set; }
+    [Parameter]
+    public byte[][] HoldField { get; set; }
+    [Parameter]
+    public List<byte[][]> NextFields { get; set; }
+
+    string[] _colorTable = new[]
+            {
+            "white",
+            //"Translate",
+            "#33a3dc",
+            "#ffe600",
+            "#7d5886",
+            "#e0861a",
+            "#145b7d",
+            "#7fb80e",
+            "#d71345",
+            "lightgray",
+            "",
+            "",
+            "#33a3dc3f",
+            "#ffe6003f",
+            "#7d58863f",
+            "#e0861a3f",
+            "#145b7d3f",
+            "#7fb80e3f",
+            "#d713453f",
+
+        };
+
+    string GetColor(byte value)
+    {
+        return value < _colorTable.Length ? _colorTable[value] : "black";
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+         KosTetrisGameBoard _tetrisBoard = new(ShowHeight: 25, tetrisMinoGenerator: new Bag7Generator<TetrisMino>());
+        Field = _tetrisBoard.GetGameField();
+                    HoldField = _tetrisBoard.GetHoldField();
+                    NextFields = _tetrisBoard.GetNextQueueField();
+        return base.OnInitializedAsync();
+    }
+}

@@ -1,0 +1,94 @@
+﻿@*@page "/KosBattleRoom"*@
+@page "/KosBattleRoom/{Id:int}"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+@if (isLoading)
+{
+
+}
+else
+{
+    <div class="row" style="min-width:960px">
+        <div class="col-6">
+            <KosTetrisBoard @ref=kosTetrisBoard></KosTetrisBoard>
+        </div>
+        <div class="col-6">
+            <div class="jumbotron bg-transparent">
+                <TetrisView Field=field HoldField=holdField NextFields=nextFields></TetrisView>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    bool isLoading = true;
+    //TetrisView tetrisView;
+    public byte[][] field;
+
+    /// <summary>
+    /// hold块
+    /// </summary>
+    public byte[][] holdField;
+    /// <summary>
+    /// next块
+    /// </summary>
+    public List<byte[][]> nextFields;
+    KosTetrisBoard kosTetrisBoard;
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id >= 100) return;
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/koshub"))
+            .Build();
+
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            var encodedMsg = $"{user}: {message}";
+            //messages.Add(encodedMsg);
+            StateHasChanged();
+        });
+        hubConnection.On<int>("Initstring", (user) =>
+        {
+
+        });
+        hubConnection.On<byte[][], byte[][], List<byte[][]>>("updateField", (a, b, c) =>
+        {
+
+            field = a;
+            holdField = b;
+            nextFields = c;
+            this.InvokeAsync(() => StateHasChanged());
+        });
+        await hubConnection.StartAsync();
+        await Init();
+        timer = new System.Threading.Timer(new System.Threading.TimerCallback(async _ =>
+           {
+
+               await Update();
+
+           }), null, 100, 17);
+        isLoading = false;
+        return;
+    }
+
+    //async Task Send() =>
+    //await hubConnection.SendAsync("SendMessage1", userInput, messageInput);
+    async Task Update() =>
+        await hubConnection.SendAsync("UpdateField", Id, kosTetrisBoard.field, kosTetrisBoard.holdField, kosTetrisBoard.nextFields);
+    async Task Init() =>
+        await hubConnection.SendAsync("SendInit", Id);
+    public bool IsConnected =>
+        hubConnection.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

@@ -34,6 +34,8 @@ namespace KingofSwl.Client.Pages
 
         };
         bool _isLoading = true;
+
+
         protected override async Task OnInitializedAsync()
         {
             var cookieContent = await localStorage.GetItemAsync<KosSetting>("KSetting");

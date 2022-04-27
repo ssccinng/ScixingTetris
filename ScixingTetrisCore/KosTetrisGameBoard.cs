@@ -11,6 +11,7 @@ namespace ScixingTetrisCore
     {
 
         public string GameMessage = "";
+        public event Action<List<int>> OnAtk;
         public KosTetrisGameBoard(int Width = 10, int Height = 25, int ShowHeight = 25, ITetrisRule tetrisRule = null, ITetrisMinoGenerator tetrisMinoGenerator = null) :
            base(Width, Height, ShowHeight, tetrisRule, tetrisMinoGenerator)
         {
@@ -76,16 +77,33 @@ namespace ScixingTetrisCore
             ClearMessage attackMessage = TryClearLines();
 
             ClearLineCnt += attackMessage.ClearRows;
-            if (SpinCheck1)
+            
+            if (SpinCheck1 && attackMessage.ClearRows > 0)
             {
                 var spinType = TetrisRule.SpinRule.GetSpinTypeAfterClean(this, TetrisMinoStatus, attackMessage);
                 attackMessage.ClearType = spinType;
-
+                if (spinType == ClearType.Spin || spinType == ClearType.Minispin || attackMessage.ClearRows == 4) attackMessage.B2B = ++B2B;
+                else B2B = -1;
             }
+            else
+            {
+                if (attackMessage.ClearRows == 4)
+                {
+                    attackMessage.B2B = ++B2B;
+                }
+                else if (attackMessage.ClearRows != 0)
+                {
+                    attackMessage.B2B = B2B = -1;
+                }
+            }
+            
             GameMessage = $"{TetrisMinoStatus.TetrisMino.MinoType} {attackMessage.ClearType} {attackMessage.ClearRows}";
             // 需要思考是否用事件触发攻击事件
             SpawnNewPiece();
+            if (attackMessage.ClearRows > 0)
+            OnAtk?.Invoke(TetrisRule.GetAttack(attackMessage));
             //ReceiveGarbage(new List<int> { 1, 2 });
+            AddGarbageToField();
             //ReceiveGarbage(new List<int> { 1});
             //GetGarbage();
             return true;

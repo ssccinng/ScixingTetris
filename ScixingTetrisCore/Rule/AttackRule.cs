@@ -42,10 +42,10 @@ namespace ScixingTetrisCore.Rule
     {
         public static readonly AttackRule Guideline = new ARGuildLine
         {
-            ComboTable = new[] { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, -1 },
+            ComboTable = new[] { 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, -1 },
             TspinAttack = new[] { 0, 2, 4, 6 },
             MiniTspinAttack = new[] { 0, 0, 2, 6 },
-            ClearRowAttack = new[] { 0, 1, 2, 4 },
+            ClearRowAttack = new[] { 0, 0, 1, 2, 4 },
             PerfectClearAttack = 6,
             //DamageCale
         };
@@ -61,7 +61,7 @@ namespace ScixingTetrisCore.Rule
                 case ClearType.None:
                     atk += ClearRowAttack[attackMessage.ClearRows];
                     break;
-                case ClearType.Tspin:
+                case ClearType.Spin:
                     atk += TspinAttack[attackMessage.ClearRows];
                     break;
                 case ClearType.Minispin:
@@ -100,6 +100,16 @@ namespace ScixingTetrisCore.Rule
     }
 
 
-    public class EPlusAttackRule { 
+    public class EPlusAttackRule : ARGuildLine
+    {
+        public override List<int> DamageCalc(ClearMessage attackMessage)
+        {
+            return base.DamageCalc(attackMessage);
+        }
+
+        public override int DamageCalcSimple(ClearMessage attackMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

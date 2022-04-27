@@ -48,7 +48,7 @@ namespace KingofSwl.Client.Pages
             {
                 KosSetting = cookieContent;
             }
-            
+            _tetrisBoard.OnAtk += _tetrisBoard.ReceiveGarbage;
             _tetrisBoard.GameStart();
             field = _tetrisBoard.GetGameField();
             holdField = _tetrisBoard.GetHoldField();

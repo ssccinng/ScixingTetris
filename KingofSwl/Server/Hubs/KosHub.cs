@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace KingofSwl.Server.Hubs
             public string user1, user2;
         }
         public static List<string> test = new();
-        static BattlePlayer[] Battles = new BattlePlayer[100];
+        static BattlePlayer[] Battles = new BattlePlayer[1000];
         public static string host;
         public async Task SendMessage(string user, string message)
         {
@@ -72,10 +73,10 @@ namespace KingofSwl.Server.Hubs
             else
             {
                 //System.Console.WriteLine(Context);
-                if (Battles[bid].user2 == Context.ConnectionId)
-                {
-                    System.Console.WriteLine("very");
-                }
+                //if (Battles[bid].user2 == Context.ConnectionId)
+                //{
+                //    System.Console.WriteLine("very");
+                //}
                 if (Battles[bid].user1 != null)
                 {
                     await Clients.Client(Battles[bid].user1).SendAsync("updateField", field, hold, nextQueue);
@@ -83,5 +84,36 @@ namespace KingofSwl.Server.Hubs
             }
             //await Clients.Others.SendAsync("updateField", field, hold, nextQueue);
         }
+        public async Task SendAtk(int bid, List<int> garbage)
+        {
+            if (Battles[bid].user1 == Context.ConnectionId)
+            {
+                //Context.User.Identity.
+                //System.Console.WriteLine(Context);
+                if (Battles[bid].user2 != null)
+                {
+                    await Clients.Client(Battles[bid].user2).SendAsync("GetAtk", garbage);
+                }
+            }
+            else
+            {
+                //System.Console.WriteLine(Context);
+                //if (Battles[bid].user2 == Context.ConnectionId)
+                //{
+                //    System.Console.WriteLine("very");
+                //}
+                if (Battles[bid].user1 != null)
+                {
+                    await Clients.Client(Battles[bid].user1).SendAsync("GetAtk", garbage);
+                }
+            }
+        }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+
+            return base.OnDisconnectedAsync(exception);
+        }
+
     }
 }

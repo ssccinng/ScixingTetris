@@ -43,7 +43,7 @@ namespace ScixingTetrisCore
 
 
         // 此处还欠考虑
-        public int B2B { get; set; }
+        public int B2B { get; set; } = -1;
         public int Combo { get; set; }
 
         public (int X, int Y) DefaultPos = (20, 3);

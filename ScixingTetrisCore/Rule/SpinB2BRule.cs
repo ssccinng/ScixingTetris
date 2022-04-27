@@ -57,6 +57,7 @@ namespace ScixingTetrisCore.Rule
     {
         public override ClearType GetSpinTypeAfterClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino, ClearMessage attackMessage)
         {
+            
             if (attackMessage.ClearRows == 0) return ClearType.None; 
             switch (tetrisMino.TetrisMino.MinoType)
             {

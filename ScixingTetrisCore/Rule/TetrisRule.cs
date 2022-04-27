@@ -107,7 +107,7 @@ namespace ScixingTetrisCore.Rule
 
         public override List<int> GetAttack(ClearMessage attackMessage)
         {
-            throw new NotImplementedException();
+            return _attackRule.DamageCalc(attackMessage);
         }
     }
 

@@ -1,11 +1,17 @@
 ﻿@*@page "/KosBattleRoom"*@
 @page "/KosBattleRoom/{Id:int}"
+@using System.Diagnostics;
+@using ScixingTetrisCore;
 @using Microsoft.AspNetCore.SignalR.Client
+@using System.Text.Json;
+@using System.Text.Json.Serialization;
 @inject NavigationManager NavigationManager
 @implements IAsyncDisposable
- <div class="row" style="min-width:960px">
+
+
+    <div class="row" style="min-width:960px">
         <div class="col-6">
-            <KosTetrisBoard @ref=kosTetrisBoard></KosTetrisBoard>
+            <KosTetrisClient @ref=kosTetrisBoard @key=kosTetrisBoard></KosTetrisClient>
         </div>
         <div class="col-6">
             <div class="jumbotron bg-transparent">
@@ -15,7 +21,10 @@
         </div>
 
     </div>
+
 @code {
+
+
     [Parameter] public int Id { get; set; }
     bool isLoading = true;
     //TetrisView tetrisView;
@@ -29,7 +38,7 @@
     /// next块
     /// </summary>
     public List<byte[][]> nextFields;
-    KosTetrisBoard kosTetrisBoard;
+    KosTetrisClient kosTetrisBoard;
     protected override async Task OnInitializedAsync()
     {
         if (Id >= 1000 || Id < 0) return;
@@ -39,12 +48,20 @@
 
         hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
         {
+            throw new Exception();
+
             var encodedMsg = $"{user}: {message}";
+            Debug.WriteLine(encodedMsg);
         //messages.Add(encodedMsg);
         StateHasChanged();
         });
-        hubConnection.On<int>("Initstring", (user) =>
+        hubConnection.On<JsonElement, int>("Initstring", (board, user) =>
         {
+            //throw new Exception();
+            Debug.WriteLine("dani!");
+            kosTetrisBoard._tetrisBoard = JsonSerializer.Deserialize<KosClientBoard>(board);
+            kosTetrisBoard._tetrisBoard.OnAtk += async s => await SendAtk(s);
+            kosTetrisBoard.UpdateClient();
 
         });
         hubConnection.On<List<int>>("GetAtk", (gab) =>
@@ -63,8 +80,8 @@
         await Init();
         timer = new System.Threading.Timer(new System.Threading.TimerCallback(async _ =>
            {
-
-               await Update();
+               // 如果只是观战，则不要发送
+               //await Update();
 
            }), null, 100, 17);
         isLoading = false;
@@ -74,11 +91,11 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            kosTetrisBoard._tetrisBoard.OnAtk += async s => await SendAtk(s);
+        //if (firstRender)
+        //{
+        //    kosTetrisBoard._tetrisBoard.OnAtk += async s => await SendAtk(s);
 
-        }
+        //}
         return;
         //return base.OnAfterRenderAsync(firstRender);
     }

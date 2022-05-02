@@ -20,6 +20,7 @@ namespace ScixingTetrisCore.Rule
         /// <returns></returns>
         public abstract bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino);
         public abstract ClearType GetSpinTypeAfterClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino, ClearMessage attackMessage);
+        public abstract bool IsB2B(ClearMessage attackMessage);
     }
     /// <summary>
     /// 高效Tspin判定
@@ -51,6 +52,12 @@ namespace ScixingTetrisCore.Rule
             }
             return ClearType.None;
             
+        }
+
+        public override bool IsB2B(ClearMessage attackMessage)
+        {
+            //if (attackMessage.ClearRows == 4) return true;
+            return attackMessage.ClearRows == 4;
         }
     }
     public class AllSpinMoveAbleRule : SpinB2BRule
@@ -97,6 +104,12 @@ namespace ScixingTetrisCore.Rule
             }
         }
 
+        public override bool IsB2B(ClearMessage attackMessage)
+        {
+            if (attackMessage.ClearRows == 4) return true;
+            return false;
+        }
+
         public override bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino)
         {
             if (tetrisGameBoard.MoveUp())
@@ -130,6 +143,11 @@ namespace ScixingTetrisCore.Rule
         {
             return ClearType.Spin;
             //throw new NotImplementedException();
+        }
+
+        public override bool IsB2B(ClearMessage attackMessage)
+        {
+            throw new NotImplementedException();
         }
 
         public override bool IsSpinBeforeClean(ITetrisGameBoard tetrisGameBoard, ITetrisMinoStatus tetrisMino)

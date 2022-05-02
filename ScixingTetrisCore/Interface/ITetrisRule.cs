@@ -22,6 +22,7 @@ namespace ScixingTetrisCore.Interface
         ITetrisMinoGenerator MinoGenerator { get; }
 
         SpinB2BRule SpinRule { get; }
+        GarbageRule GarbageRule { get; }
 
         ///// <summary>
         ///// 攻击表（？ 感觉要换一下

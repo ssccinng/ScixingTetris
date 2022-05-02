@@ -94,7 +94,7 @@
         <tr>
             <td height=25></td>
         </tr>
-        <tr>
+        <tr> 
             <td height=25></td>
         </tr>
         <tr>
@@ -144,6 +144,7 @@
 
     string GetColor(byte value)
     {
+        if (value == 255) return "lightgray";
         return value < _colorTable.Length ? _colorTable[value] : "black";
     }
 

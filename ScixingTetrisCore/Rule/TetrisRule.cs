@@ -61,12 +61,14 @@ namespace ScixingTetrisCore.Rule
         /// 攻击表
         /// </summary>
         protected AttackRule _attackRule { get; set; }
+        
 
         public IGarbageGenerator GarbageGenerator { get; protected set; }
 
         public ITetrisMinoGenerator MinoGenerator{ get; protected set; }
 
         public SpinB2BRule SpinRule { get; protected set; }
+        public GarbageRule GarbageRule { get; protected set; }
 
         protected IFieldCheck _fieldCheck;
         public abstract bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus);
@@ -94,6 +96,7 @@ namespace ScixingTetrisCore.Rule
             //RotationSystem = ScixingTetrisCore.Rule.RotationSystem.Geek,
             _fieldCheck = FCGuildLine.FieldCheck;
             _attackRule = ARGuildLine.Guideline;
+            GarbageRule = GarbageRule.GuildLineGarbageRule;
         }
         public override bool CheckMinoOk(ITetrisBoard tetrisBoard, ITetrisMinoStatus tetrisMinoStatus)
         {

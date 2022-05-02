@@ -2,6 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ScixingTetrisCore;
+using ScixingTetrisCore.Battle;
+using ScixingTetrisCore.Interface;
+using System.Diagnostics;
+
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace KingofSwl.Server.Hubs
 {
@@ -12,7 +19,9 @@ namespace KingofSwl.Server.Hubs
             public string user1, user2;
         }
         public static List<string> test = new();
+        //public static List<string> KosBattles = new();
         static BattlePlayer[] Battles = new BattlePlayer[1000];
+        static KosBattle[] KosBattles = new KosBattle[1000];
         public static string host;
         public async Task SendMessage(string user, string message)
         {
@@ -26,22 +35,28 @@ namespace KingofSwl.Server.Hubs
         }
         public async Task SendInit(int id)
         {
-            if (id >= 100) return;
+            Debug.WriteLine("当前登陆id: " + Context.ConnectionId);
+            //Clients.User.
+            if (id >= 1000) return;
             if (Battles[id] == null)
             {
                 Battles[id] = new BattlePlayer();
+                KosBattles[id] = new();
                 Battles[id].user1 = Context.ConnectionId;
-                await Clients.Caller.SendAsync("Initstring", 1);
+                await Clients.Caller.SendAsync("ReceiveMessage", "1232", "456");
+                //var ff = JsonSerializer.Serialize(KosBattles[id].Player1.CreateClient());
+                await Clients.Caller.SendAsync("Initstring", KosBattles[id].Player1.CreateClient(), 1);
+                //await Clients.Caller.SendAsync("Initstring", 1, 1);
             }
             else if (Battles[id].user2 == default)
             {
                 Battles[id].user2 = Context.ConnectionId;
-                await Clients.Caller.SendAsync("Initstring", 2);
+                await Clients.Caller.SendAsync("Initstring", KosBattles[id].Player2.CreateClient(), 2);
             }
             else if (Battles[id].user1 == default)
             {
                 Battles[id].user1 = Context.ConnectionId;
-                await Clients.Caller.SendAsync("Initstring", 1);
+                //await Clients.Caller.SendAsync("Initstring", 1);
             }
             //System.Console.WriteLine("临流");
             //await Clients.All.SendAsync("ReceiveMessage", "11", "11");
@@ -61,6 +76,7 @@ namespace KingofSwl.Server.Hubs
 
         public async Task UpdateField(int bid, byte[][] field, byte[][] hold, List<byte[][]> nextQueue)
         {
+
             if (Battles[bid].user1 == Context.ConnectionId)
             {
                 //Context.User.Identity.
@@ -95,7 +111,7 @@ namespace KingofSwl.Server.Hubs
                     await Clients.Client(Battles[bid].user2).SendAsync("GetAtk", garbage);
                 }
             }
-            else
+            else if (Battles[bid].user2 == Context.ConnectionId)
             {
                 //System.Console.WriteLine(Context);
                 //if (Battles[bid].user2 == Context.ConnectionId)
@@ -108,9 +124,18 @@ namespace KingofSwl.Server.Hubs
                 }
             }
         }
+        // 要不要判断一下是谁提交的，回合数等
+        public async Task Commit(int bid, List<List<MoveType>> moveTypes)
+        {
+            // 判断一下id
+            KosBattles[bid].CommitMove(moveTypes);
+            // 强制刷新两者场地
+            // 如谁应该动等等
+        }
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
+            Debug.WriteLine("当前断线id: " + Context.ConnectionId);
 
             return base.OnDisconnectedAsync(exception);
         }

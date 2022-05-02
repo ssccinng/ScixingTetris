@@ -1,0 +1,14 @@
+﻿
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+<div class="jumbotron bg-transparent" @onkeydown="@KeyDown" @onkeyup="@Keyup" tabindex="0" @ref="inputKeyDiv">
+        <TetrisView Field=field HoldField=holdField NextFields=nextFields></TetrisView>
+    </div>
+@code {
+    ElementReference inputKeyDiv;
+    bool isLoading = true;
+}
+
+
+@code {
+
+}

@@ -10,7 +10,7 @@ namespace ScixingTetrisCore
     public class TetrisGameViewBoard : TetrisGameBoard, IViewBoard
     {
         public TetrisGameViewBoard(int Width = 10, int Height = 40, int ShowHeight = 20, ITetrisRule tetrisRule = null, ITetrisMinoGenerator tetrisMinoGenerator = null):
-            base(Width, Height, ShowHeight, tetrisRule, tetrisMinoGenerator)
+            base (Width, Height, ShowHeight, tetrisRule, tetrisMinoGenerator)
         { }
 
         

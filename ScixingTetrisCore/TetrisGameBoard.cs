@@ -13,7 +13,7 @@ namespace ScixingTetrisCore
     // 生成位置确定一下
     public class TetrisGameBoard : ITetrisGameBoard
     {
-        public byte[][] Field { get; private set; }
+        public byte[][] Field { get; protected set; }
         public int Height { get => Field.Length; }
         public int Width { get => Field[0].Length; }
         public int ShowHeight { get; set; }
@@ -23,7 +23,7 @@ namespace ScixingTetrisCore
         //public Queue<ITetrisMino> NextQueue => throw new NotImplementedException(); 
         public Queue<ITetrisMino> NextQueue { get; } = new();
 
-        public bool IsDead => throw new NotImplementedException();
+        public bool IsDead => false;
 
         // 对于单方块场地
         public ITetrisMinoStatus TetrisMinoStatus;
@@ -66,7 +66,7 @@ namespace ScixingTetrisCore
         }
 
         // 加入接口
-        public void GameStart()
+        public virtual void GameStart()
         {
             NextQueue.Clear();
             for (int i = 0; i < 7; i++)
@@ -421,7 +421,7 @@ namespace ScixingTetrisCore
             // 这个撕烤 根据不同的规则生成
             NextQueue.Enqueue(TetrisMinoGenerator.GetNextMino());
             // 针对io 立即下降一格
-            SoftDrop();
+            //SoftDrop();
             return true;
         }
 
@@ -444,6 +444,9 @@ namespace ScixingTetrisCore
             //    ColHeight[i] = 0;
             //}
             TetrisMinoGenerator.Reset();
+            GarbageStack.Clear();
+            B2B = -1;
+            Combo = 0;
             GameStart();
             //ColHeight = new int[Width];
         }

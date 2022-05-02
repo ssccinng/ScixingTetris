@@ -9,7 +9,15 @@ namespace ScixingTetrisCore.Interface
 {
     public enum MoveType
     {
-
+        MoveLeft,
+        MoveRight,
+        MoveUp,
+        MoveDown,
+        LeftRotation,
+        RightRotation,
+        SoftDrop,
+        SonicDrop,
+        HardDrop,
     }
     public interface ITetrisMinoStatus
     {

@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Linq;
 
 namespace KingofSwl.Server.Hubs
 {
@@ -43,15 +44,17 @@ namespace KingofSwl.Server.Hubs
                 Battles[id] = new BattlePlayer();
                 KosBattles[id] = new();
                 Battles[id].user1 = Context.ConnectionId;
-                await Clients.Caller.SendAsync("ReceiveMessage", "1232", "456");
+                //await Clients.Caller.SendAsync("ReceiveMessage", "1232", "456");
                 //var ff = JsonSerializer.Serialize(KosBattles[id].Player1.CreateClient());
-                await Clients.Caller.SendAsync("Initstring", KosBattles[id].Player1.CreateClient(), 1);
+                //await Clients.Caller.SendAsync("Initstring", KosBattles[id].Player1.CreateClient(), 1);
+                //await Clients.Caller.SendAsync("Initstring", KosBattles[id].Player1.Field, KosBattles[id].Player1.NextQueue.Select(s => s.MinoType), ); ;
+                await Clients.Caller.SendAsync("Initstring", KosBattles[id].Player1.CreateMessage(7) ); 
                 //await Clients.Caller.SendAsync("Initstring", 1, 1);
             }
             else if (Battles[id].user2 == default)
             {
                 Battles[id].user2 = Context.ConnectionId;
-                await Clients.Caller.SendAsync("Initstring", KosBattles[id].Player2.CreateClient(), 2);
+                await Clients.Caller.SendAsync("Initstring", KosBattles[id].Player2.CreateMessage(7));
             }
             else if (Battles[id].user1 == default)
             {

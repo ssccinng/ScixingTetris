@@ -59,7 +59,10 @@
         {
             //throw new Exception();
             Debug.WriteLine("dani!");
-            kosTetrisBoard._tetrisBoard = JsonSerializer.Deserialize<KosClientBoard>(board);
+            kosTetrisBoard._tetrisBoard = new();
+            kosTetrisBoard._tetrisBoard.SetField(JsonSerializer.Deserialize<byte[][]>(board.GetProperty("Field")));
+            kosTetrisBoard._tetrisBoard.NextList = new TetrisMino[0];
+
             kosTetrisBoard._tetrisBoard.OnAtk += async s => await SendAtk(s);
             kosTetrisBoard.UpdateClient();
 

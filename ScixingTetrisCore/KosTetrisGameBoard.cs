@@ -224,6 +224,23 @@ namespace ScixingTetrisCore
             kosClientBoard.NextList = NextQueue.ToArray(); 
             return kosClientBoard;
         }
+        public object CreateMessage(int remainMove)
+        {
+            // 这里要拷贝一份ServerBoard
+            return new
+            {
+                Field = Field,
+                HoldMino = HoldMino.MinoType,
+                NextList = NextQueue.Select(s => s.MinoType),
+                RemainMove = remainMove
+            };
+            //KosClientBoard kosClientBoard = new();
+            //kosClientBoard.SetField(Field.Clone() as byte[][]);
+            //kosClientBoard.HoldMino = HoldMino;
+            //kosClientBoard.NextList = NextQueue.ToArray();
+            //return kosClientBoard;
+        }
+
         public override void GameStart()
         {
             HoldMino = TetrisMinoGenerator.GetNextMino();

@@ -57,12 +57,17 @@
         });
         hubConnection.On<JsonElement, int>("Initstring", (board, user) =>
         {
-            //throw new Exception();
-            Debug.WriteLine("dani!");
+        //throw new Exception();
+        Debug.WriteLine("dani!");
             kosTetrisBoard._tetrisBoard = new();
             kosTetrisBoard._tetrisBoard.SetField(JsonSerializer.Deserialize<byte[][]>(board.GetProperty("Field")));
-            kosTetrisBoard._tetrisBoard.NextList = new TetrisMino[0];
-
+        //kosTetrisBoard._tetrisBoard.NextList = new TetrisMino[0];
+        var cc = board.GetProperty("NextList");
+        kosTetrisBoard._tetrisBoard.NextList = new TetrisMino[cc.GetArrayLength()];
+            for (int i = 0; i < cc.GetArrayLength(); ++i)
+            {
+                
+            }
             kosTetrisBoard._tetrisBoard.OnAtk += async s => await SendAtk(s);
             kosTetrisBoard.UpdateClient();
 

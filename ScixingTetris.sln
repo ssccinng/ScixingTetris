@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hikari", "Hikari\Hikari.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TETR.IO.Bot.Hikari", "TETR.IO.Bot.Hikari\TETR.IO.Bot.Hikari.csproj", "{45C0D7C6-38AB-4FEA-9365-60F082EF82EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScixingTetris.PCFinder", "ScixingTetris.PCFinder\ScixingTetris.PCFinder.csproj", "{8486D19A-5FCC-4D1E-BC80-AC3272D1DB1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{45C0D7C6-38AB-4FEA-9365-60F082EF82EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45C0D7C6-38AB-4FEA-9365-60F082EF82EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45C0D7C6-38AB-4FEA-9365-60F082EF82EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8486D19A-5FCC-4D1E-BC80-AC3272D1DB1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8486D19A-5FCC-4D1E-BC80-AC3272D1DB1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8486D19A-5FCC-4D1E-BC80-AC3272D1DB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8486D19A-5FCC-4D1E-BC80-AC3272D1DB1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -66,7 +66,7 @@ namespace ScixingTetrisCore
             }
             return res;
         }
-
+        
         public ITetrisMinoStatus Clone()
         {
             var res = new TetrisMinoStatus();
